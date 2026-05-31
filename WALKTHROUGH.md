@@ -9,6 +9,12 @@ depends on any private project.
 This document is written to be read on its own and to be fed into a slide
 generator for a short demo deck. Each step is one idea.
 
+## The problem
+
+Long projects live in long threads, and each new session re-reads the thread,
+re-derives decisions, and loses state, while work across several repositories
+drifts apart. This method gives the work a structure that holds its own memory.
+
 ## Step 1: Start from the open thread
 
 A project usually begins as one long conversation thread. That thread holds
@@ -72,6 +78,15 @@ with the context intact.
 A session that starts weeks later opens the relevant task home, reads the recent
 checkpoints, and continues with the thread intact. The conversation thread
 becomes a system that holds its own memory.
+
+## Glossary
+
+- 00: the zero element and orchestrator. It routes work and reconciles state, and leaves execution to the lanes.
+- Lane: one actor with one job, for example research, data pipelines, modeling, writing, or packaging.
+- System surface: a file class with one job, namely authoritative memos, derived reports, narrative logs, or current state.
+- Work home: one task folder inside a lane, named yyyymmdd_slug, with a manifest, a readme, a step log, and handoff notes.
+- Checkpoint: the unit of memory, a recorded state change in what a lane knows, can do, is blocked by, or is allowed to write.
+- Handoff: a written transfer of ownership or next-action authority between lanes or sessions.
 
 ## Honest scope
 
