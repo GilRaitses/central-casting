@@ -1,0 +1,34 @@
+# Example actor catalogue (sanitized demo, not a real project)
+#
+# A catalogue lists the work lanes of a project. Each lane is an actor with a
+# clear job. 00 is the zero element: the orchestrator that routes work and
+# reconciles state. It does not execute lane work itself.
+
+catalogue:
+  system_folder: .cc
+  catalogue_root: .cc/catalogue
+  root_rule: >-
+    The catalogue root holds actor folders only, named 00, 01, 02, and onward.
+    Functional buckets (for example notes, drafts, assets) are not valid
+    root-level folders.
+
+actor_index:
+  "00":
+    role: orchestration (zero element)
+    description: >-
+      Central orchestrator. Handles intake, routing, state reconciliation, and
+      memo generation. It does not execute lane work.
+  "01":
+    label: Research and analysis
+  "02":
+    label: Data pipelines and conversion
+  "03":
+    label: Modeling and experiments
+  "04":
+    label: Writing and documentation
+  "05":
+    label: Packaging and presentation
+
+non_claims:
+  - This catalogue is a sanitized example for the walkthrough.
+  - It does not require creating empty actor folders when no active work home exists.

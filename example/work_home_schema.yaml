@@ -1,0 +1,20 @@
+# Example work-home schema (sanitized demo)
+#
+# A work home is one task folder for one piece of work, living inside its
+# actor folder. It uses a yyyymmdd_slug name and carries a fixed set of files
+# so any session can hydrate from it.
+
+work_home:
+  naming: "yyyymmdd_slug"
+  example_path: ".cc/catalogue/03/20260530_example-experiment/"
+  required_files:
+    - manifest.yml          # what this work home is, its inputs, its owner
+    - README.md             # human-readable orientation
+    - STEP_LOG.md           # the checkpoint history for this work home
+    - orchestrator/HANDOFF.md
+    - research/HANDOFF.md
+    - runner/HANDOFF.md
+  hydration_rule: >-
+    Every session reads STEP_LOG.md first. The step log records what this work
+    home knows, what it can do, what it is blocked by, and what it is allowed
+    to write.

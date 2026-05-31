@@ -1,0 +1,26 @@
+# Example checkpoint policy (sanitized demo)
+#
+# A checkpoint is the unit of memory. It is a recorded state change in what a
+# lane knows, can do, is blocked by, or is allowed to write. A session reads
+# recent checkpoints and resumes from there.
+
+policy:
+  interval: checkpoint
+  not_every_turn: true
+  rationale: >-
+    Every chat turn is too granular and task completion is too coarse. The
+    stable interval is a checkpoint: a real transition in lane state.
+
+checkpoint_types:
+  hydration:        first read after a session starts or rehydrates
+  pre_write:        before any file-changing pass
+  worker_report:    a worker reports a result, blocker, or evidence package
+  gate_transition:  a gate opens, closes, fails, or is waived
+  blocker:          progress is blocked by missing evidence, access, or conflict
+  handoff:          ownership or next-action authority transfers
+  commit_push:      a file-changing pass lands and is published
+  authority_change: a schema, decision, or source-of-truth authority changes
+
+minimum_standard: >-
+  Log at every checkpoint. Do not log every turn. Do not wait for task
+  completion if a gate, worker report, blocker, or authority state changes.
