@@ -5,7 +5,7 @@ This is the single source to feed into NotebookLM. It consolidates every page of
 Live pages this source covers:
 - Demo home: https://gilraitses.github.io/central-casting/
 - Method walkthrough: https://gilraitses.github.io/central-casting/walkthrough.html
-- Demo source for slides: https://gilraitses.github.io/central-casting/demo-source.html
+- Reference and worked example: https://gilraitses.github.io/central-casting/reference.html
 - In practice on a real program: https://gilraitses.github.io/central-casting/aimez-program.html
 - Event demo, cost and kill-and-respawn: https://gilraitses.github.io/central-casting/event.html
 - Source: https://github.com/GilRaitses/central-casting
@@ -24,7 +24,7 @@ Central Casting is a method for keeping long, multi-repository agent work cohere
 
 ## The problem it solves
 
-Long projects live in long threads. Each new session re-reads the thread, re-derives decisions and loses state, and work across several repositories drifts apart. The method gives the work a structure that holds its own memory, so a session weeks later resumes from recorded state.
+A long-lived agent re-sends its whole growing context on every turn, so input tokens climb worse than linearly, and a cold session re-reads the thread and re-derives its decisions before it does any work. The gap is measurable, the context a run carries and re-bills, and across several repositories the work also drifts apart. The method closes the gap by giving the work a structure on disk that holds its own memory, so a session weeks later resumes from recorded state.
 
 ## The method, in eight steps
 

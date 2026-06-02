@@ -84,9 +84,9 @@
 
     <section class="slide">
       <p class="kicker">The problem</p>
-      <h2>Long projects live in long threads</h2>
-      <p class="lead">Each new session re-reads the thread, re-derives decisions and loses state, while work across several repositories drifts apart.</p>
-      <p class="lead">This method gives the work a structure that holds its own memory.</p>
+      <h2>A measurable, avoidable cost</h2>
+      <p class="lead">A long-lived agent re-sends its whole growing context on every turn, so input tokens climb worse than linearly, and a cold session re-reads the thread before it does any work.</p>
+      <p class="lead">This method closes the gap by giving the work a structure on disk that holds its own memory, so a run resumes from recorded state.</p>
     </section>
 
     <section class="slide">

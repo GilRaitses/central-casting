@@ -11,9 +11,12 @@ generator for a short demo deck. Each step is one idea.
 
 ## The problem
 
-Long projects live in long threads, and each new session re-reads the thread,
-re-derives decisions, and loses state, while work across several repositories
-drifts apart. This method gives the work a structure that holds its own memory.
+A long-lived agent re-sends its whole growing context on every turn, so input
+tokens climb worse than linearly, and a cold session re-reads the thread and
+re-derives its decisions before it does any work. The gap is measurable, the
+context a run carries and re-bills. This method closes it by giving the work a
+structure on disk that holds its own memory, so a session resumes from recorded
+state.
 
 ## Step 1: Start from the open thread
 
