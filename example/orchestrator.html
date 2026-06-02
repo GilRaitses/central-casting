@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>00, the orchestrator (example)</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header class="site-nav">
+    <a class="brand" href="../index.html">Central Casting</a>
+    <nav>
+      <a href="../walkthrough.html">Walkthrough</a>
+      <a href="../demo-source.html">Demo source</a>
+      <a href="../aimez-program.html">In practice</a>
+    </nav>
+  </header>
+  <main>
+    <h1>00, the orchestrator</h1>
+    <p class="subtitle">The zero element of the lane system.</p>
+    <p class="scope">A sanitized example. 00 is the central orchestrator. It is a control surface, not an execution surface.</p>
+
+    <h2>What 00 does</h2>
+    <ul class="plain">
+      <li><strong>Intake:</strong> take in a request or an open thread and classify it.</li>
+      <li><strong>Routing:</strong> send a bounded task to the right lane.</li>
+      <li><strong>State reconciliation:</strong> check current state before interpreting any return.</li>
+      <li><strong>Memo generation:</strong> write the contract that a lane executes against.</li>
+    </ul>
+
+    <h2>What 00 does not do</h2>
+    <ul class="plain">
+      <li>It does not execute lane work.</li>
+      <li>It does not mutate repositories or documents directly.</li>
+      <li>It does not stand in for a lane's own validation.</li>
+    </ul>
+
+    <h2>Why a zero element</h2>
+    <p>Keeping orchestration separate from execution is what lets the lanes stay focused and the state stay trustworthy. 00 holds the map, and the lanes do the work.</p>
+
+    <p class="foot">Back to <a href="../walkthrough.html">the walkthrough</a> &middot; <a href="system-surfaces.html">System surfaces</a> &middot; <a href="step-log.html">A step log</a></p>
+  </main>
+</body>
+</html>

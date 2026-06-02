@@ -4,92 +4,79 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Central Casting: a conversation thread to a structured project</title>
-  <style>
-    :root { --bg:#1c2130; --panel:#242b3d; --ink:#e8eef5; --accent:#9ee7ef; --muted:#aeb9c7; }
-    * { box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif; line-height: 1.6; color: var(--ink); background: var(--bg); margin: 0; padding: 1.5rem; }
-    main { max-width: 880px; margin: 0 auto; }
-    header { padding: 1rem 0 0.5rem; }
-    h1 { font-size: 2rem; line-height: 1.1; margin: 0 0 0.4rem; color: #c8fdff; font-weight: 300; }
-    .subtitle { color: var(--accent); margin: 0 0 0.4rem; font-size: 1.02rem; }
-    .scope { color: var(--muted); font-size: 0.9rem; margin: 0 0 1.6rem; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.9rem; }
-    .card { background: var(--panel); border-radius: 0.7rem; padding: 1rem 1.1rem; border: 1px solid rgba(255,255,255,0.06); }
-    .step { color: var(--accent); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 0.3rem; }
-    .card h3 { margin: 0 0 0.4rem; font-size: 1.02rem; }
-    .card p { margin: 0 0 0.5rem; color: #d7e3e8; font-size: 0.93rem; }
-    .card a { color: var(--accent); font-size: 0.85rem; text-decoration: none; }
-    .card a:hover { text-decoration: underline; }
-    h2 { font-size: 1.1rem; color: var(--accent); margin: 2rem 0 0.6rem; }
-    .foot { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.14); color: var(--muted); font-size: 0.88rem; }
-    .foot a { color: var(--accent); }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<main>
-  <header>
+  <header class="site-nav">
+    <a class="brand" href="index.html">Central Casting</a>
+    <nav>
+      <a href="walkthrough.html">Walkthrough</a>
+      <a href="demo-source.html">Demo source</a>
+      <a href="aimez-program.html">In practice</a>
+    </nav>
+  </header>
+  <main>
     <h1>Central Casting</h1>
     <p class="subtitle">One open conversation thread, grown into a structured, multi-session project.</p>
     <p class="scope">A method demo. The operating layer is Cursor. The example schema is sanitized and carries no private project content.</p>
-  </header>
 
-  <div class="grid">
-    <div class="card">
-      <p class="step">Step 1</p>
-      <h3>Start from the open thread</h3>
-      <p>Name the project and its scope in one sentence, so everything after has a fixed center.</p>
+    <div class="steps">
+      <div class="step">
+        <span class="num">1</span>
+        <h3>Start from the open thread</h3>
+        <p>Name the project and its scope in one sentence, so everything after has a fixed center.</p>
+      </div>
+      <div class="step">
+        <span class="num">2</span>
+        <h3>Name the work lanes</h3>
+        <p>List the distinct kinds of work. Each becomes a lane with one job. A zero element, 00, orchestrates above them.</p>
+        <p class="ref"><a href="example/actor_catalogue.yaml">actor_catalogue.yaml</a> &middot; <a href="example/orchestrator.html">00, the orchestrator</a></p>
+      </div>
+      <div class="step">
+        <span class="num">3</span>
+        <h3>Set up system surfaces</h3>
+        <p>Give every file a surface class: authoritative memos, derived reports, narrative logs, current state. The path tells a reader what to trust.</p>
+        <p class="ref"><a href="example/system-surfaces.html">system surfaces</a></p>
+      </div>
+      <div class="step">
+        <span class="num">4</span>
+        <h3>Create task home folders</h3>
+        <p>Each task gets a folder named yyyymmdd_slug with a manifest, a readme, a step log and handoff notes.</p>
+        <p class="ref"><a href="example/work_home_schema.yaml">work_home_schema.yaml</a></p>
+      </div>
+      <div class="step">
+        <span class="num">5</span>
+        <h3>Add the schemas</h3>
+        <p>The catalogue schema defines the lanes and folder rules. The work-home schema defines what every task folder must contain.</p>
+      </div>
+      <div class="step">
+        <span class="num">6</span>
+        <h3>Record checkpoints as memory</h3>
+        <p>The unit of memory is a checkpoint: a recorded state change in what a lane knows, can do, is blocked by or is allowed to write.</p>
+        <p class="ref"><a href="example/checkpoint_policy.yaml">checkpoint_policy.yaml</a> &middot; <a href="example/step-log.html">a step log</a></p>
+      </div>
+      <div class="step">
+        <span class="num">7</span>
+        <h3>Keep a local and cloud boundary</h3>
+        <p>The memory and audit layer stays local. Production and packaging can be delegated to cloud agents.</p>
+      </div>
+      <div class="step">
+        <span class="num">8</span>
+        <h3>Hand off in writing</h3>
+        <p>Work that moves between lanes or sessions carries a written handoff, so the next agent has the context intact.</p>
+      </div>
     </div>
-    <div class="card">
-      <p class="step">Step 2</p>
-      <h3>Name the work lanes</h3>
-      <p>List the distinct kinds of work. Each becomes a lane with one job. A zero element, 00, orchestrates above them.</p>
-      <a href="example/actor_catalogue.yaml">actor_catalogue.yaml</a> · <a href="example/00_orchestrator.md">00_orchestrator.md</a>
-    </div>
-    <div class="card">
-      <p class="step">Step 3</p>
-      <h3>Set up system surfaces</h3>
-      <p>Give every file a surface class: authoritative memos, derived reports, narrative logs, current state. The path tells a reader what to trust.</p>
-      <a href="example/system_surfaces.md">system_surfaces.md</a>
-    </div>
-    <div class="card">
-      <p class="step">Step 4</p>
-      <h3>Create task home folders</h3>
-      <p>Each task gets a folder named yyyymmdd_slug with a manifest, a readme, a step log, and handoff notes.</p>
-      <a href="example/work_home_schema.yaml">work_home_schema.yaml</a>
-    </div>
-    <div class="card">
-      <p class="step">Step 5</p>
-      <h3>Add the schemas</h3>
-      <p>The catalogue schema defines the lanes and folder rules. The work-home schema defines what every task folder must contain.</p>
-    </div>
-    <div class="card">
-      <p class="step">Step 6</p>
-      <h3>Record checkpoints as memory</h3>
-      <p>The unit of memory is a checkpoint: a recorded state change in what a lane knows, can do, is blocked by or is allowed to write.</p>
-      <a href="example/checkpoint_policy.yaml">checkpoint_policy.yaml</a> · <a href="example/STEP_LOG.example.md">STEP_LOG.example.md</a>
-    </div>
-    <div class="card">
-      <p class="step">Step 7</p>
-      <h3>Keep a local and cloud boundary</h3>
-      <p>The memory and audit layer stays local. Production and packaging can be delegated to cloud agents.</p>
-    </div>
-    <div class="card">
-      <p class="step">Step 8</p>
-      <h3>Hand off in writing</h3>
-      <p>Work that moves between lanes or sessions carries a written handoff, so the next agent has the context intact.</p>
-    </div>
-  </div>
 
-  <h2>What this buys you</h2>
-  <p>A session that starts weeks later opens the relevant task home, reads the recent checkpoints, and continues with the thread intact. The conversation thread becomes a system that holds its own memory.</p>
+    <h2>What this buys you</h2>
+    <div class="callout"><p>A session that starts weeks later opens the relevant task home, reads the recent checkpoints and continues with the thread intact. The conversation thread becomes a system that holds its own memory.</p></div>
 
-  <h2>See it on a real program</h2>
-  <p>The catalogue, the tooling layers and how the aimez.ai research program runs on this method are written up on a companion page: <a href="aimez-program.html">Central Casting in practice</a>.</p>
+    <h2>See it on a real program</h2>
+    <p>The catalogue, the tooling layers and how the aimez.ai research program runs on this method are written up on a companion page: <a href="aimez-program.html">Central Casting in practice</a>.</p>
 
-  <h2>Honest scope</h2>
-  <p>The method is recent and still maturing. The checkpoint discipline reduces context loss, and it depends on care. A change in one lane reaches another when it is carried there on purpose. This page is a teaching demo, not a framework to install.</p>
+    <h2>Honest scope</h2>
+    <p>The method is recent and still maturing. The checkpoint discipline reduces context loss, and it depends on care. A change in one lane reaches another when it is carried there on purpose. This page is a teaching demo, not a framework to install.</p>
 
-  <p class="foot">In practice: <a href="aimez-program.html">the aimez.ai program</a> · Full method: <a href="WALKTHROUGH.md">WALKTHROUGH.md</a> · Source: <a href="https://github.com/GilRaitses/central-casting">github.com/GilRaitses/central-casting</a></p>
-</main>
+    <p class="foot">Full method: <a href="walkthrough.html">walkthrough</a> &middot; Slide source: <a href="demo-source.html">demo source</a> &middot; In practice: <a href="aimez-program.html">the aimez.ai program</a> &middot; Contents: <a href="readme.html">overview</a> &middot; Source: <a href="https://github.com/GilRaitses/central-casting">GitHub</a></p>
+  </main>
 </body>
 </html>
