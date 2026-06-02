@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Central Casting: demo source for slides</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-nav">
+    <a class="brand" href="index.html">Central Casting</a>
+    <nav>
+      <a href="walkthrough.html">Walkthrough</a>
+      <a href="demo-source.html">Demo source</a>
+      <a href="aimez-program.html">In practice</a>
+    </nav>
+  </header>
+  <main>
+    <h1>Demo source for slides</h1>
+    <p class="subtitle">The material a deck needs, in one place.</p>
+    <p class="scope">This page carries the problem, clear definitions, a worked example, an architecture picture, concrete moves in Cursor and answers to the hard questions. It pairs with the <a href="walkthrough.html">walkthrough</a> and the sanitized files in <code>example/</code>.</p>
+
+    <h2>The problem</h2>
+    <p>Long projects live in long conversation threads. Each new session re-reads the thread, re-derives decisions and slowly loses the plot, and work that spans several repositories drifts apart. The cost shows up as repeated context, lost decisions and stale state. Central Casting addresses this by giving the work a structure that holds its own memory.</p>
+
+    <h2>Glossary</h2>
+    <table>
+      <tr><th>Term</th><th>One-line definition</th></tr>
+      <tr><td class="id">00</td><td>The zero element and orchestrator. It routes work and reconciles state, and it leaves execution to the lanes.</td></tr>
+      <tr><td class="id">Lane</td><td>One actor with one job, for example research, data pipelines, modeling, writing or packaging.</td></tr>
+      <tr><td class="id">System surface</td><td>A file class with one job: authoritative memos, derived reports, narrative logs or current state.</td></tr>
+      <tr><td class="id">Work home</td><td>One task folder inside a lane, named yyyymmdd_slug, carrying a manifest, a readme, a step log and handoff notes.</td></tr>
+      <tr><td class="id">Checkpoint</td><td>The unit of memory: a recorded state change in what a lane knows, can do, is blocked by or is allowed to write.</td></tr>
+      <tr><td class="id">Handoff</td><td>A written transfer of ownership or next-action authority between lanes or sessions.</td></tr>
+    </table>
+
+    <h2>Worked example</h2>
+    <p>A sanitized example shows the method end to end. The project: compare two analysis methods on a shared dataset and report which one holds under sparse sampling.</p>
+    <div class="callout"><p><strong>Before.</strong> The work lives in one long thread. Decisions about the dataset, the metric and the threshold are scattered through the chat, and a session two weeks later has to reread all of it.</p></div>
+    <p><strong>After, in eight moves:</strong></p>
+    <ol>
+      <li>Name the project in one sentence: compare method A and method B on the shared dataset, and report which holds under sparse sampling.</li>
+      <li>Name the lanes: 01 research, 02 data pipelines, 03 modeling, 04 writing, with 00 orchestrating. See <code>example/actor_catalogue.yaml</code>.</li>
+      <li>Set the surfaces: the comparison contract is a memo, the results are reports, the daily narrative is a log, the current decision is state. See <a href="example/system-surfaces.html">system surfaces</a>.</li>
+      <li>Open the work home <code>03/20260530_method-comparison</code> with its manifest, readme, step log and handoffs. See <code>example/work_home_schema.yaml</code>.</li>
+      <li>Fix the schemas: the catalogue schema sets the lanes and folder rules, and the work-home schema sets the required files.</li>
+      <li>Record checkpoints as the work moves: hydration, pre-write inventory, worker report, blocker, authority change, commit. See <a href="example/step-log.html">a step log</a>.</li>
+      <li>Keep the memory and audit local, and delegate the figure export to a cloud agent.</li>
+      <li>Write the handoff when the modeling lane passes results to the writing lane.</li>
+    </ol>
+    <div class="callout"><p><strong>Result.</strong> A session that opens this work home two weeks later reads the last six checkpoints and continues with the thread intact.</p></div>
+
+    <h2>Architecture</h2>
+    <div class="diagram">
+      <svg viewBox="0 0 762 360" role="img" aria-label="00 sits above the lanes and the system surfaces; lanes and surfaces feed work homes, which record step-log checkpoints">
+        <defs>
+          <marker id="ad" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L7,3 L0,6 z" fill="#7ec8e3"/></marker>
+        </defs>
+        <g font-family="sans-serif">
+          <rect x="301" y="16" width="160" height="50" rx="12" fill="#f7d6e3" stroke="#e07a9f" stroke-width="2"/>
+          <text x="381" y="46" text-anchor="middle" font-size="14" font-weight="700" fill="#b8567f">00 orchestrator</text>
+
+          <rect x="70" y="120" width="250" height="50" rx="12" fill="#ffffff" stroke="#7ec8e3" stroke-width="2"/>
+          <text x="195" y="150" text-anchor="middle" font-size="13" font-weight="600" fill="#3f5161">Lanes 01 to 05</text>
+
+          <rect x="400" y="120" width="292" height="50" rx="12" fill="#eaf6fc" stroke="#7ec8e3" stroke-width="2"/>
+          <text x="546" y="143" text-anchor="middle" font-size="13" font-weight="600" fill="#3f5161">System surfaces</text>
+          <text x="546" y="160" text-anchor="middle" font-size="11" fill="#6a8198">memos &#183; reports &#183; logs &#183; state</text>
+
+          <rect x="261" y="224" width="240" height="50" rx="12" fill="#ffffff" stroke="#7ec8e3" stroke-width="2"/>
+          <text x="381" y="247" text-anchor="middle" font-size="13" font-weight="600" fill="#3f5161">Work homes</text>
+          <text x="381" y="264" text-anchor="middle" font-size="11" fill="#6a8198">yyyymmdd&#95;slug</text>
+
+          <rect x="281" y="304" width="200" height="44" rx="12" fill="#fff4e0" stroke="#f3b6cd" stroke-width="2"/>
+          <text x="381" y="331" text-anchor="middle" font-size="13" font-weight="600" fill="#c76f93">STEP&#95;LOG checkpoints</text>
+
+          <line x1="360" y1="66" x2="220" y2="118" stroke="#7ec8e3" stroke-width="2" marker-end="url(#ad)"/>
+          <line x1="402" y1="66" x2="528" y2="118" stroke="#7ec8e3" stroke-width="2" marker-end="url(#ad)"/>
+          <line x1="210" y1="170" x2="320" y2="222" stroke="#7ec8e3" stroke-width="2" marker-end="url(#ad)"/>
+          <line x1="520" y1="170" x2="445" y2="222" stroke="#7ec8e3" stroke-width="2" marker-end="url(#ad)"/>
+          <line x1="381" y1="274" x2="381" y2="302" stroke="#f3b6cd" stroke-width="2" marker-end="url(#ad)"/>
+        </g>
+      </svg>
+    </div>
+    <p class="cap">00 sits above the lanes and holds the map. Each lane owns its work homes, every file resolves to one system surface and checkpoints record the state of each work home over time.</p>
+
+    <h2>Concrete moves in Cursor</h2>
+    <ul class="plain">
+      <li>Keep <code>00</code> as an external control surface in its own chat, separate from the lanes, so orchestration stays out of execution.</li>
+      <li>Hold each lane's contract in a memo file that the lane reads on hydration.</li>
+      <li>Start each session by reading the work home step log, then record a hydration checkpoint as the first write.</li>
+      <li>Record a checkpoint at each real state change, and keep ordinary chat turns out of the log.</li>
+      <li>Delegate heavy production passes to a cloud agent, and keep the audit layer on the local machine.</li>
+    </ul>
+
+    <h2>Objections and answers</h2>
+    <h3>Is this overkill for a small project?</h3>
+    <p>For a one-session task, yes, the plain thread is enough. The method earns its weight when work spans weeks or several repositories.</p>
+    <h3>Does the model already remember across sessions?</h3>
+    <p>Memory across long sessions stays partial and drifts. The checkpoint log gives a durable, inspectable record that a session can trust on its own.</p>
+    <h3>What breaks?</h3>
+    <p>Context still drifts inside a long session, and a change in one lane reaches another when it is carried there on purpose. The discipline reduces these failures and depends on care.</p>
+    <h3>When should you skip it?</h3>
+    <p>Skip it for throwaway exploration. Reach for it once a project has a future and more than one moving part.</p>
+
+    <p class="foot">Method: <a href="walkthrough.html">walkthrough</a> &middot; Demo page: <a href="index.html">the eight steps</a> &middot; In practice: <a href="aimez-program.html">the aimez.ai program</a> &middot; Source: <a href="https://github.com/GilRaitses/central-casting">GitHub</a></p>
+  </main>
+</body>
+</html>

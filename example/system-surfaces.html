@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Example system surfaces (sanitized demo)</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header class="site-nav">
+    <a class="brand" href="../index.html">Central Casting</a>
+    <nav>
+      <a href="../walkthrough.html">Walkthrough</a>
+      <a href="../demo-source.html">Demo source</a>
+      <a href="../aimez-program.html">In practice</a>
+    </nav>
+  </header>
+  <main>
+    <h1>System surfaces</h1>
+    <p class="subtitle">A file class with one job.</p>
+    <p class="scope">A sanitized example. Naming the surface class of every file is what keeps a multi-session project legible. This example uses four classes.</p>
+
+    <table>
+      <tr><th>Surface</th><th>Path</th><th>Role</th><th>Write rule</th></tr>
+      <tr><td class="id">Memos</td><td><code>.cc/memos/</code></td><td>Authoritative contracts and decisions</td><td>Authoritative; change through a new superseding memo</td></tr>
+      <tr><td class="id">Reports</td><td><code>.cc/reports/</code></td><td>Derived artifacts and analysis outputs</td><td>Writable in execution</td></tr>
+      <tr><td class="id">Logs</td><td><code>.cc/logs/</code></td><td>Day logs and lab narrative</td><td>Writable when a lane is authorized</td></tr>
+      <tr><td class="id">State</td><td><code>.cc/state/</code></td><td>Current system state</td><td>Read-only during proposal and intake</td></tr>
+    </table>
+
+    <h2>The rule that makes it work</h2>
+    <p>Each file resolves to exactly one surface class. A reader knows, from the path alone, whether a file is authoritative, derived, narrative or state. That single property is what lets a new session trust what it reads.</p>
+
+    <p class="foot">Back to <a href="../walkthrough.html">the walkthrough</a> &middot; <a href="orchestrator.html">00, the orchestrator</a> &middot; <a href="step-log.html">A step log</a></p>
+  </main>
+</body>
+</html>

@@ -4,40 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Central Casting in practice: the aimez.ai research program</title>
-  <style>
-    :root {
-      --bg:#eef7fc; --card:#ffffff; --ink:#46566a; --muted:#8aa0b2;
-      --blue:#7ec8e3; --blue-deep:#4a90c2; --pink:#f3b6cd; --pink-deep:#e07a9f;
-      --cream:#fff4e0; --border:#cfe9f5;
-    }
-    * { box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif; line-height: 1.62; color: var(--ink); background: var(--bg); margin: 0; padding: 1.5rem; }
-    main { max-width: 880px; margin: 0 auto; }
-    h1 { font-size: 2rem; line-height: 1.1; margin: 0 0 0.3rem; color: var(--blue-deep); font-weight: 600; }
-    .subtitle { color: var(--pink-deep); margin: 0 0 0.3rem; font-size: 1.02rem; }
-    .scope { color: var(--muted); font-size: 0.9rem; margin: 0 0 1.6rem; }
-    h2 { font-size: 1.12rem; color: var(--blue-deep); margin: 2rem 0 0.5rem; }
-    h2::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--pink); margin-right: 0.5rem; vertical-align: middle; }
-    p { color: var(--ink); }
-    .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0.8rem; margin: 0.8rem 0; }
-    .col { background: var(--card); border-radius: 0.8rem; padding: 0.85rem 0.95rem; border: 1px solid var(--border); }
-    .col h4 { margin: 0 0 0.3rem; color: var(--pink-deep); font-size: 0.8rem; letter-spacing: 0.05em; text-transform: uppercase; }
-    .col p { margin: 0; font-size: 0.88rem; }
-    .diagram { background: var(--card); border: 1px solid var(--border); border-radius: 0.9rem; padding: 0.9rem 1rem; margin: 0.7rem 0 0.3rem; }
-    .diagram svg { width: 100%; height: auto; display: block; }
-    .cap { color: var(--muted); font-size: 0.82rem; margin: 0.3rem 0 1rem; }
-    table { width: 100%; border-collapse: collapse; margin: 0.6rem 0 1rem; font-size: 0.9rem; background: var(--card); border-radius: 0.6rem; overflow: hidden; }
-    th, td { text-align: left; padding: 0.45rem 0.6rem; border-bottom: 1px solid var(--border); vertical-align: top; }
-    th { color: var(--blue-deep); font-weight: 600; background: #e6f4fb; }
-    td.id { font-family: ui-monospace, Menlo, monospace; color: var(--blue-deep); font-weight: 600; white-space: nowrap; }
-    td.lt { color: var(--muted); white-space: nowrap; }
-    .o0 td { background: #fdeef4; }
-    .retired td { color: var(--muted); }
-    .foot { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.88rem; }
-    a { color: var(--blue-deep); }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header class="site-nav">
+    <a class="brand" href="index.html">Central Casting</a>
+    <nav>
+      <a href="walkthrough.html">Walkthrough</a>
+      <a href="demo-source.html">Demo source</a>
+      <a href="aimez-program.html">In practice</a>
+    </nav>
+  </header>
 <main>
   <h1>Central Casting in practice</h1>
   <p class="subtitle">How the aimez.ai research program runs on the method.</p>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STEP_LOG (example work home)</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header class="site-nav">
+    <a class="brand" href="../index.html">Central Casting</a>
+    <nav>
+      <a href="../walkthrough.html">Walkthrough</a>
+      <a href="../demo-source.html">Demo source</a>
+      <a href="../aimez-program.html">In practice</a>
+    </nav>
+  </header>
+  <main>
+    <h1>A step log</h1>
+    <p class="subtitle">Example work home: <code>03/20260530_example-experiment</code></p>
+    <p class="scope">Each entry is a checkpoint. A session reads the most recent entries and resumes from there.</p>
+
+    <div class="timeline">
+      <div class="entry">
+        <span class="tag">hydration</span><span class="when">2026-05-30</span>
+        <ul>
+          <li>Read the manifest and this step log. The work home covers one example experiment.</li>
+          <li>Known inputs: the example dataset and the modeling plan in the manifest.</li>
+        </ul>
+      </div>
+      <div class="entry">
+        <span class="tag">pre_write</span><span class="when">2026-05-30</span>
+        <ul>
+          <li>About to write the first analysis script. Inventory: one script and one output table.</li>
+        </ul>
+      </div>
+      <div class="entry">
+        <span class="tag">worker_report</span><span class="when">2026-05-30</span>
+        <ul>
+          <li>The script ran and produced the output table. One parameter needs a second pass.</li>
+        </ul>
+      </div>
+      <div class="entry">
+        <span class="tag">blocker</span><span class="when">2026-05-30</span>
+        <ul>
+          <li>A second pass needs a threshold the manifest does not yet fix. Routed to 00 for a decision.</li>
+        </ul>
+      </div>
+      <div class="entry">
+        <span class="tag">authority_change</span><span class="when">2026-05-30</span>
+        <ul>
+          <li>00 fixed the threshold in a superseding memo. The manifest now points to it.</li>
+        </ul>
+      </div>
+      <div class="entry">
+        <span class="tag">commit_push</span><span class="when">2026-05-30</span>
+        <ul>
+          <li>The analysis script and output table landed and were published.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="foot">Back to <a href="../walkthrough.html">the walkthrough</a> &middot; <a href="orchestrator.html">00, the orchestrator</a> &middot; <a href="system-surfaces.html">System surfaces</a></p>
+  </main>
+</body>
+</html>
