@@ -6,7 +6,7 @@
 
 work_home:
   naming: "yyyymmdd_slug"
-  example_path: ".cc/catalogue/03/20260530_example-experiment/"
+  example_path: ".cca/catalogue/03/20260530_example-experiment/"
   required_files:
     - manifest.yml          # what this work home is, its inputs, its owner
     - README.md             # human-readable orientation
