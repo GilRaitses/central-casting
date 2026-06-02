@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Central Casting: the cost deck</title>
+  <style>
+    :root {
+      --bg:#eef7fc; --card:#ffffff; --ink:#46566a; --muted:#8aa0b2;
+      --blue:#7ec8e3; --blue-deep:#4a90c2; --pink:#f3b6cd; --pink-deep:#e07a9f;
+      --cream:#fff4e0; --border:#cfe9f5; --code-bg:#f4fbff;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      color: var(--ink);
+      background: linear-gradient(160deg, #eef7fc 0%, #fbf0f5 100%);
+      overflow: hidden;
+    }
+    .deck { height: 100vh; width: 100vw; position: relative; }
+    .slide {
+      position: absolute; inset: 0;
+      display: none;
+      flex-direction: column; justify-content: center;
+      padding: clamp(1.4rem, 6vw, 5rem) clamp(1.4rem, 9vw, 8rem);
+      animation: fade 0.35s ease;
+    }
+    .slide.active { display: flex; }
+    @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+    .kicker { color: var(--pink-deep); font-size: clamp(0.8rem, 1.4vw, 1rem); letter-spacing: 0.12em; text-transform: uppercase; margin: 0 0 0.8rem; }
+    .kicker::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--pink); margin-right: 0.5rem; vertical-align: middle; }
+    h1 { font-size: clamp(2rem, 5.5vw, 4rem); line-height: 1.05; margin: 0 0 1rem; color: var(--blue-deep); font-weight: 700; }
+    h2 { font-size: clamp(1.5rem, 3.6vw, 2.6rem); line-height: 1.12; margin: 0 0 1rem; color: var(--blue-deep); font-weight: 700; }
+    p.lead { font-size: clamp(1rem, 2vw, 1.5rem); color: var(--ink); max-width: 60ch; margin: 0 0 0.8rem; }
+    p.sub { font-size: clamp(0.95rem, 1.7vw, 1.3rem); color: var(--pink-deep); margin: 0 0 1.2rem; }
+    .def { font-size: clamp(1rem, 1.9vw, 1.4rem); color: var(--ink); max-width: 62ch; }
+    .def strong { color: var(--blue-deep); }
+    .tag { display: inline-block; background: #fdeef4; color: var(--pink-deep); border-radius: 6px; padding: 0.08rem 0.5rem; font-size: 0.7em; font-weight: 600; letter-spacing: 0.04em; vertical-align: middle; }
+
+    ul, ol { font-size: clamp(0.98rem, 1.8vw, 1.35rem); max-width: 64ch; margin: 0.3rem 0; padding-left: 1.4rem; }
+    li { margin-bottom: 0.55rem; }
+    li b { color: var(--blue-deep); }
+
+    .stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.8rem; max-width: 70ch; margin: 0.6rem 0 1rem; }
+    .stat { background: var(--card); border: 1px solid var(--border); border-radius: 0.8rem; padding: 0.9rem 0.8rem; text-align: center; }
+    .stat b { display: block; font-size: clamp(1.6rem, 3vw, 2.4rem); color: var(--blue-deep); }
+    .stat span { font-size: clamp(0.75rem, 1.1vw, 0.95rem); color: var(--muted); }
+
+    table { width: 100%; max-width: 78ch; border-collapse: collapse; background: var(--card); border-radius: 0.6rem; overflow: hidden; font-size: clamp(0.78rem, 1.3vw, 1.02rem); }
+    th, td { text-align: left; padding: 0.45rem 0.7rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { color: var(--blue-deep); background: #e6f4fb; font-weight: 600; }
+    td.lt { color: var(--pink-deep); font-weight: 600; white-space: nowrap; }
+
+    .tree { background: var(--card); border: 1px solid var(--border); border-radius: 0.9rem; padding: 1rem 1.1rem; font-family: ui-monospace, Menlo, monospace; font-size: clamp(0.72rem, 1.2vw, 0.95rem); color: #3f5161; line-height: 1.85; white-space: pre; overflow-x: auto; max-width: 70ch; }
+    .tree .note { color: #8aa0b2; font-style: italic; }
+
+    .flow { display: flex; align-items: center; flex-wrap: wrap; gap: 0.55rem; font-size: clamp(0.82rem, 1.3vw, 1.05rem); }
+    .node { background: var(--card); border: 2px solid var(--blue); border-radius: 0.8rem; padding: 0.55rem 0.85rem; font-weight: 600; color: var(--blue-deep); }
+    .node.pink { border-color: var(--pink-deep); color: var(--pink-deep); background: #fdeef4; }
+    .arrow { color: var(--blue); font-size: 1.3rem; }
+
+    .panel { background: #fff8ef; border: 1px solid var(--pink); border-radius: 0.9rem; padding: 1rem 1.2rem; max-width: 64ch; }
+    .panel .big { font-size: clamp(1.3rem, 2.6vw, 2rem); font-weight: 700; color: var(--pink-deep); margin: 0; }
+    .panel small { color: #6a7886; font-size: clamp(0.8rem, 1.2vw, 1rem); }
+
+    .links a { display: inline-block; margin: 0.3rem 1rem 0.3rem 0; color: var(--blue-deep); font-size: clamp(0.95rem, 1.6vw, 1.2rem); font-weight: 600; text-decoration: none; border-bottom: 2px solid var(--pink); padding-bottom: 1px; }
+    .links a:hover { color: var(--pink-deep); }
+
+    .hud { position: fixed; bottom: 1.1rem; right: 1.3rem; display: flex; align-items: center; gap: 0.8rem; z-index: 10; }
+    .count { color: var(--muted); font-size: 0.85rem; font-variant-numeric: tabular-nums; }
+    .nav-btn { width: 2.2rem; height: 2.2rem; border-radius: 50%; border: 1px solid var(--border); background: var(--card); color: var(--blue-deep); font-size: 1.1rem; cursor: pointer; line-height: 1; }
+    .nav-btn:hover { background: #fdeef4; border-color: var(--pink); }
+    .home-link { position: fixed; top: 1.1rem; left: 1.3rem; z-index: 10; color: var(--blue-deep); text-decoration: none; font-weight: 700; font-size: 0.95rem; }
+    .home-link::before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--pink); margin-right: 0.4rem; vertical-align: middle; }
+    .progress { position: fixed; top: 0; left: 0; height: 4px; background: var(--pink-deep); width: 0; z-index: 11; transition: width 0.3s ease; }
+    .hint { position: fixed; bottom: 1.2rem; left: 1.3rem; color: var(--muted); font-size: 0.78rem; z-index: 10; }
+  </style>
+</head>
+<body>
+  <a class="home-link" href="index.html">Central Casting</a>
+  <div class="progress" id="progress"></div>
+  <div class="deck" id="deck">
+
+    <section class="slide active">
+      <p class="kicker">Event demo</p>
+      <h1>Cut the cost of long agent runs</h1>
+      <p class="sub">Externalize agent state to disk so a slow or full worker respawns from a few KB, and keep planning on a separate cyclable chat.</p>
+      <p class="lead">The operating layer is Cursor. The orchestrator runs in a separate chat. This deck is the short event walk.</p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">The problem</p>
+      <h2>The context tax</h2>
+      <p class="lead">A single long-lived agent re-sends its whole growing context every turn, so input tokens, which dominate the bill, climb worse than linearly as a session runs.</p>
+      <p class="lead">Orchestration makes it worse: planning and reconciliation are token-heavy reasoning that never touches code yet burns premium in-editor turns.</p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">The fix, in one line</p>
+      <h2>State on disk, an orchestrator you cycle</h2>
+      <p class="lead">Put the durable state on disk so the chat is disposable, and move planning to a separate chat you can replace when it fills.</p>
+      <div class="flow">
+        <span class="node pink">state on disk</span>
+        <span class="arrow">+</span>
+        <span class="node">bounded workers</span>
+        <span class="arrow">+</span>
+        <span class="node">cyclable orchestrator</span>
+      </div>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">State on disk</p>
+      <h2>The .cca folder</h2>
+      <p class="lead" style="margin-bottom:0.6rem;">The durable truth lives in a .cca folder, one lane per work area. The chat is disposable, the folder is the source of truth.</p>
+      <div class="tree">.cca/
+  O1 .. O16/                  <span class="note">a lane, the local orchestrator's home</span>
+    current_step.yaml          <span class="note">lane step state</span>
+    MMDD_task/                 <span class="note">a dated task home</span>
+      A1 .. An/                <span class="note">a worker actor in the lane</span>
+        drafts/                <span class="note">work the worker produced</span>
+        current_state.yaml     <span class="note">the worker's externalized state</span></div>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">Kill and respawn</p>
+      <h2>Hydration in five moves</h2>
+      <div class="flow">
+        <span class="node">worker slows</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node pink">checkpoint to disk</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node pink">kill</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">fresh worker</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">hydrate and resume</span>
+      </div>
+      <p class="lead" style="margin-top:1.2rem;">The fresh worker reads a few KB of state, so it carries no stale or cross-task context and pays no replay tax.</p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">The orchestrator</p>
+      <h2>Cycle a slow O0 chat in one turn</h2>
+      <p class="lead">Planning, routing and reconciliation run in a separate chat called O0. It treats the .cca workspace as the source of truth and reconciles from it every turn, so the chat holds nothing irreplaceable.</p>
+      <div class="flow">
+        <span class="node pink">O0 chat fills</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">fresh O0 loads the rules</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">reconcile from .cca</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">resume routing</span>
+      </div>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">Why cycling is safe</p>
+      <h2>The four O0 rules</h2>
+      <ol>
+        <li><b>The workspace is the truth, not the chat.</b> O0 reads the .cca bundle every turn and treats it as authoritative.</li>
+        <li><b>Reconcile before acting.</b> It compares each input against the latest workspace state and stops on a conflict.</li>
+        <li><b>No stale memory.</b> It refuses inferred continuity, which is what makes the chat disposable.</li>
+        <li><b>The instruction layer is portable.</b> The rules load into any fresh chat, so a new O0 is the same O0 after one hydration turn.</li>
+      </ol>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">On a real program <span class="tag">verified</span></p>
+      <h2>One five-week run, read from its own step log</h2>
+      <div class="stat-row">
+        <div class="stat"><b>7</b><span>active lanes</span></div>
+        <div class="stat"><b>14</b><span>task homes</span></div>
+        <div class="stat"><b>175</b><span>checkpoints</span></div>
+        <div class="stat"><b>~12</b><span>O0 chats cycled <em>(est)</em></span></div>
+      </div>
+      <p class="lead">The lane, task-home and checkpoint counts are read straight from the central step log. The cycled-chat count is an estimate.</p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">The headline <span class="tag">estimate</span></p>
+      <h2>Roughly 70 to 85 percent fewer input tokens</h2>
+      <div class="panel">
+        <p class="big">70 to 85 percent fewer input tokens on the metered surface.</p>
+        <small>An estimate from one real run. The structural cause is verified: durable state on disk, bounded per-task context, and an orchestrator cycled in one hydration turn. Dollar figures are illustrative, not measured.</small>
+      </div>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">Two levers <span class="tag">estimates labeled</span></p>
+      <h2>Where the reduction comes from</h2>
+      <table>
+        <tr><th>Lever</th><th>What changes</th><th>Estimated effect</th></tr>
+        <tr><td class="lt">External orchestrator</td><td>Planning runs on a flat-fee chat, off the metered in-editor turns, cycled in one hydration turn.</td><td>token-heavy reasoning leaves the metered surface</td></tr>
+        <tr><td class="lt">Bounded workers</td><td>Each worker is scoped to one task home, near 10 to 25K tokens, where one monolithic thread grows to 80 to 150K.</td><td>about 70 to 80 percent fewer input tokens per task</td></tr>
+      </table>
+      <p class="sub" style="margin-top:0.9rem;">Caching lowers the absolute dollars; the structural win holds either way.</p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">Read more</p>
+      <h2>Go deeper</h2>
+      <p class="lead">The method, the worked program, and the reading version of this demo.</p>
+      <div class="links">
+        <a href="walkthrough-deck.html">The method deck</a>
+        <a href="aimez-program.html">Central Casting in practice</a>
+        <a href="event.html">This demo, reading version</a>
+        <a href="https://github.com/GilRaitses/central-casting">Source on GitHub</a>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="hud">
+    <button class="nav-btn" id="prev" aria-label="Previous slide">&larr;</button>
+    <span class="count" id="count">1 / 11</span>
+    <button class="nav-btn" id="next" aria-label="Next slide">&rarr;</button>
+  </div>
+  <p class="hint">Arrow keys or space to move</p>
+
+  <script>
+    (function () {
+      var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+      var i = 0;
+      var count = document.getElementById('count');
+      var progress = document.getElementById('progress');
+      function show(n) {
+        i = Math.max(0, Math.min(slides.length - 1, n));
+        slides.forEach(function (s, k) { s.classList.toggle('active', k === i); });
+        count.textContent = (i + 1) + ' / ' + slides.length;
+        progress.style.width = ((i) / (slides.length - 1) * 100) + '%';
+        if (location.hash !== '#' + (i + 1)) history.replaceState(null, '', '#' + (i + 1));
+      }
+      function next() { show(i + 1); }
+      function prev() { show(i - 1); }
+      document.getElementById('next').addEventListener('click', next);
+      document.getElementById('prev').addEventListener('click', prev);
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); next(); }
+        else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prev(); }
+        else if (e.key === 'Home') { show(0); }
+        else if (e.key === 'End') { show(slides.length - 1); }
+      });
+      var start = parseInt((location.hash || '').replace('#', ''), 10);
+      show(isNaN(start) ? 0 : start - 1);
+    })();
+  </script>
+</body>
+</html>
