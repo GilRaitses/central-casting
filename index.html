@@ -65,7 +65,7 @@
     <div class="card">
       <p class="step">Step 6</p>
       <h3>Record checkpoints as memory</h3>
-      <p>The unit of memory is a checkpoint: a recorded state change in what a lane knows, can do, is blocked by, or is allowed to write.</p>
+      <p>The unit of memory is a checkpoint: a recorded state change in what a lane knows, can do, is blocked by or is allowed to write.</p>
       <a href="example/checkpoint_policy.yaml">checkpoint_policy.yaml</a> · <a href="example/STEP_LOG.example.md">STEP_LOG.example.md</a>
     </div>
     <div class="card">
@@ -83,10 +83,13 @@
   <h2>What this buys you</h2>
   <p>A session that starts weeks later opens the relevant task home, reads the recent checkpoints, and continues with the thread intact. The conversation thread becomes a system that holds its own memory.</p>
 
+  <h2>See it on a real program</h2>
+  <p>The catalogue, the tooling layers and how the aimez.ai research program runs on this method are written up on a companion page: <a href="aimez-program.html">Central Casting in practice</a>.</p>
+
   <h2>Honest scope</h2>
   <p>The method is recent and still maturing. The checkpoint discipline reduces context loss, and it depends on care. A change in one lane reaches another when it is carried there on purpose. This page is a teaching demo, not a framework to install.</p>
 
-  <p class="foot">Full method: <a href="WALKTHROUGH.md">WALKTHROUGH.md</a> · Source: <a href="https://github.com/GilRaitses/central-casting">github.com/GilRaitses/central-casting</a></p>
+  <p class="foot">In practice: <a href="aimez-program.html">the aimez.ai program</a> · Full method: <a href="WALKTHROUGH.md">WALKTHROUGH.md</a> · Source: <a href="https://github.com/GilRaitses/central-casting">github.com/GilRaitses/central-casting</a></p>
 </main>
 </body>
 </html>
