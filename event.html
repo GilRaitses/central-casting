@@ -22,14 +22,14 @@
     <a class="brand" href="index.html">Central Casting</a>
     <nav>
       <a href="walkthrough-deck.html">Walkthrough</a>
-      <a href="event.html">Event demo</a>
+      <a href="event-deck.html">Event demo</a>
       <a href="aimez-program.html">In practice</a>
     </nav>
   </header>
   <main>
-    <h1>Kill and respawn a coding agent without leaking context</h1>
-    <p class="subtitle">A way to externalize agent state so a slow or full agent costs one hydration turn to replace, not a full replay.</p>
-    <p class="scope">The operating layer is Cursor. The orchestrator runs in a separate chat. This page is the source for a short event demo.</p>
+    <h1>Cut the cost of long agent runs</h1>
+    <p class="subtitle">Externalize agent state to disk so a slow or full worker respawns from a few KB, and keep planning on a separate cyclable chat.</p>
+    <p class="scope">The operating layer is Cursor. The orchestrator runs in a separate chat. This page is the reading version of the event slide deck.</p>
 
     <h2>The cost problem</h2>
     <p>A single long-lived agent re-sends its whole growing context every turn, so input tokens, which dominate the bill, climb worse than linearly as a session runs. Orchestration makes it worse, because planning and reconciliation are token-heavy reasoning that never touches code yet burns premium in-editor turns. Central Casting attacks both by putting the durable state on disk and moving the planning off the metered surface.</p>
@@ -149,7 +149,7 @@
       <div class="step"><span class="num">5</span><h3>Show the number</h3><p>The token reduction, anchored to the real five-week run above.</p></div>
     </div>
 
-    <p class="foot">Walkthrough deck: <a href="walkthrough-deck.html">the slide deck</a> &middot; In practice: <a href="aimez-program.html">the aimez.ai program</a> &middot; Source: <a href="https://github.com/GilRaitses/central-casting">GitHub</a></p>
+    <p class="foot">Event deck: <a href="event-deck.html">the slide deck</a> &middot; Method deck: <a href="walkthrough-deck.html">the walkthrough</a> &middot; In practice: <a href="aimez-program.html">the aimez.ai program</a> &middot; Source: <a href="https://github.com/GilRaitses/central-casting">GitHub</a></p>
   </main>
 </body>
 </html>
