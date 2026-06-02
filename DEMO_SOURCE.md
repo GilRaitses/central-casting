@@ -8,11 +8,12 @@ hard questions. It pairs with `WALKTHROUGH.md` and the sanitized files in
 
 ## The problem
 
-Long projects live in long conversation threads. Each new session re-reads the
-thread, re-derives decisions, and slowly loses the plot, and work that spans
-several repositories drifts apart. The cost shows up as repeated context, lost
-decisions, and stale state. Central Casting addresses this by giving the work a
-structure that holds its own memory.
+A long-lived agent re-sends its whole growing context on every turn, so input
+tokens climb worse than linearly, and a cold session re-reads the thread and
+re-derives its decisions before it does any work. The gap is measurable, the
+context a run carries and re-bills, and work that spans several repositories
+also drifts apart. Central Casting closes it by giving the work a structure on
+disk that holds its own memory.
 
 ## Glossary
 

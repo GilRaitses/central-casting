@@ -16,7 +16,7 @@ task home folders and schemas. The operating layer is Cursor.
   - `STEP_LOG.example.md` shows a real checkpoint history.
 - `index.html` is the live demo page, served through GitHub Pages.
 - `aimez-program.html` is the worked counterpart: the demo catalogue, the tooling layers and how the aimez.ai research program runs on this method.
-- The primary walkthrough is a slide deck, `walkthrough-deck.html`. Every document also has a styled, native HTML page. Read them rendered at https://gilraitses.github.io/central-casting/ (`walkthrough-deck.html`, `walkthrough.html`, `demo-source.html`, `readme.html` and the pages under `example/`).
+- The primary walkthrough is a slide deck, `walkthrough-deck.html`. Every document also has a styled, native HTML page. Read them rendered at https://gilraitses.github.io/central-casting/ (`walkthrough-deck.html`, `walkthrough.html`, `reference.html`, `readme.html` and the pages under `example/`).
 
 ## How to use it
 

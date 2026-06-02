@@ -11,7 +11,7 @@
     <a class="brand" href="index.html">Central Casting</a>
     <nav>
       <a href="walkthrough-deck.html">Walkthrough</a>
-      <a href="demo-source.html">Demo source</a>
+      <a href="reference.html">Reference</a>
       <a href="aimez-program.html">In practice</a>
     </nav>
   </header>
@@ -21,7 +21,7 @@
     <p class="scope">This walkthrough takes one open conversation thread about a project and grows it into a structured, multi-session system: work lanes, system surfaces, task home folders and schemas. The operating layer is Cursor, and the files in <code>example/</code> are a sanitized demo that carries no private project content.</p>
 
     <h2>The problem</h2>
-    <p>Long projects live in long threads, and each new session re-reads the thread, re-derives decisions and loses state, while work across several repositories drifts apart. This method gives the work a structure that holds its own memory.</p>
+    <p>A long-lived agent re-sends its whole growing context on every turn, so input tokens climb worse than linearly, and a cold session re-reads the thread and re-derives its decisions before it does any work. The gap is measurable, the context a run carries and re-bills. This method closes it by giving the work a structure on disk that holds its own memory, so a session resumes from recorded state.</p>
 
     <h2>The eight steps</h2>
     <div class="steps">
