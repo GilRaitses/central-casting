@@ -1,8 +1,9 @@
 # Example actor catalogue (sanitized demo, not a real project)
 #
-# A catalogue lists the work lanes of a project. Each lane is an actor with a
-# clear job. 00 is the zero element: the orchestrator that routes work and
-# reconciles state. It does not execute lane work itself.
+# A catalogue lists the work lanes of a project. Each lane is a team that owns
+# one kind of work, with a lead actor and supporting actors under the lane's
+# local orchestrator. 00 is the zero element: the central orchestrator that
+# routes work and reconciles state. It does not execute lane work itself.
 
 catalogue:
   system_folder: .cc

@@ -10,7 +10,7 @@
   <header class="site-nav">
     <a class="brand" href="index.html">Central Casting</a>
     <nav>
-      <a href="walkthrough.html">Walkthrough</a>
+      <a href="walkthrough-deck.html">Walkthrough</a>
       <a href="demo-source.html">Demo source</a>
       <a href="aimez-program.html">In practice</a>
     </nav>
@@ -24,9 +24,9 @@
   <p>The program is organized along four columns that the catalogue keeps separate, so any file or action resolves to a clear place.</p>
   <div class="cols">
     <div class="col"><h4>Instrumentation</h4><p>The tool layers that produce work, from open-ended reasoning to in-editor drafting.</p></div>
-    <div class="col"><h4>Actors</h4><p>The work lanes, each a role with one job, indexed under the O lane.</p></div>
+    <div class="col"><h4>Actors</h4><p>The workers inside each lane, named by the lane letter and an instance number, run by the lane's local orchestrator.</p></div>
     <div class="col"><h4>Contracts</h4><p>The system surfaces and written handoffs that say what each lane reads and writes.</p></div>
-    <div class="col"><h4>ID</h4><p>The stable index that names each lane by number and letter.</p></div>
+    <div class="col"><h4>ID</h4><p>The stable index that pairs each lane's local orchestrator, 01 through 05, with its team letter, A through P.</p></div>
   </div>
 
   <h2>Instrumentation: the drafting layers</h2>
@@ -96,7 +96,7 @@
       </g>
     </svg>
   </div>
-  <p class="cap">The orchestrator is the zero element of the O lane. It routes work to the lettered lanes A through N and P. Letter O has no work lane, because orchestration is the role of the zero element.</p>
+  <p class="cap">00 is the central orchestrator. It routes work to the lanes and reconciles their returns. Each lane has its own local orchestrator, numbered 01 through 05, that records step state for its actors and relays verified summaries up to 00. Orchestration is distributed, so the letter O names the orchestration lane itself and carries no separate worker team.</p>
 
   <h2>Contracts: how work moves and remembers</h2>
   <div class="diagram">
@@ -134,6 +134,7 @@
   <p class="cap">Every file carries a surface class, so a reader knows from the path alone whether it is an authoritative memo, a derived report, a narrative log or current state. Each lane keeps dated task homes, and a session reads the step log first, so it resumes with the lane history intact.</p>
 
   <h2>The full catalogue</h2>
+  <p>The catalogue indexes sixteen work lanes by letter, A through P. The ID is the lane's local orchestrator, 01 through 05, sitting under the central orchestrator 00. The actors that do the work in a lane are named by the lane letter and an instance number, so the research lab lane B runs B1 and B2 and the publication lane P runs P1 and P2.</p>
   <table>
     <tr><th>ID</th><th>Letter</th><th>Lane</th></tr>
     <tr class="o0"><td class="id">00</td><td class="lt">zero element</td><td>Orchestration and coordinating. Intake, routing, state reconciliation, catalogue hygiene and cross-repo packaging. It does not execute lane work.</td></tr>
@@ -151,28 +152,39 @@
     <tr><td class="id">03</td><td class="lt">L</td><td>Modeling and experiments</td></tr>
     <tr><td class="id">04</td><td class="lt">M</td><td>Writing and documentation</td></tr>
     <tr><td class="id">05</td><td class="lt">N</td><td>New Features R&amp;D</td></tr>
-    <tr class="retired"><td class="id">00</td><td class="lt">O</td><td>Retired as a work lane. Orchestration is the role of the zero element 00.</td></tr>
+    <tr><td class="id">00</td><td class="lt">O</td><td>The orchestration lane itself. 00 is the central orchestrator and 01 through 05 are the per-lane local orchestrators, so the O letter carries no separate worker team.</td></tr>
     <tr><td class="id">05</td><td class="lt">P</td><td>Packaging and presentation. Presentation, funding and paper-drafting coordination.</td></tr>
   </table>
 
   <h2>How aimez.ai runs on it</h2>
-  <p>The aimez.ai research program is the work this catalogue coordinates, and the clearest single output is the <a href="https://aimez.ai/notes/routing-demo.html" target="_blank" rel="noopener noreferrer">stress-aware routing demo</a>, built and orchestrated through these lanes. Recent task homes map onto the lanes like this.</p>
+  <p>The aimez.ai research program is the work this catalogue coordinates, and the clearest single output is the <a href="https://aimez.ai/notes/routing-demo.html" target="_blank" rel="noopener noreferrer">stress-aware routing demo</a>, built and orchestrated through these lanes. The deployment runs along two strands: the site and routing work, and the research grounding and manuscript chain. The cast deployed so far maps onto the lanes like this.</p>
+
+  <h3>Site, product and routing</h3>
   <table>
     <tr><th>Lane</th><th>aimez.ai work</th></tr>
-    <tr><td class="lt">00 orchestration</td><td>cross-repo local orchestration, packaging the program across the site, the manuscripts and the public demos</td></tr>
+    <tr><td class="lt">00 orchestration</td><td>cross-repo orchestration, packaging the program across the site, the manuscripts and the public demos</td></tr>
     <tr><td class="lt">03 UX / Documentation</td><td>aimez site identity, the notes pages and the figures gallery</td></tr>
     <tr><td class="lt">04 Patenting / Authoring Strategy</td><td>the StreetLight validation brief and provider disclosure boundaries</td></tr>
     <tr><td class="lt">05 Packaging</td><td>the advisor outreach packet and grant proposal revision alignment</td></tr>
     <tr><td class="lt">03 Theoretical Research</td><td>the research partner packet, formal theory sharpness and the allocentric flocking bridge</td></tr>
     <tr><td class="lt">04 Topological Modeling</td><td>the topological framing of the Manhattan graph work</td></tr>
     <tr><td class="lt">03 Modeling and experiments</td><td>aimez program identity, holding the program coherent across surfaces</td></tr>
-    <tr><td class="lt">05 Publication</td><td>the exploratory findings manuscript chain, presentation and funding coordination</td></tr>
   </table>
+
+  <h3>Research grounding and manuscript chain</h3>
+  <p>This strand grew out of the publication chain program, which carried the figure data and the trace reconstruction behind the research. It is where the catalogue has cast multiple actors per lane.</p>
+  <table>
+    <tr><th>Lane</th><th>Actors</th><th>What it carried</th></tr>
+    <tr><td class="lt">01 Authority / Excavation</td><td class="lt">A1, A2</td><td>the trace reconstruction lane, excavation lineage and chain execution behind the published figures</td></tr>
+    <tr><td class="lt">01 Research / Lab</td><td class="lt">B1, B2</td><td>the evidence closure lane and the figure-data chain</td></tr>
+    <tr><td class="lt">05 Publication</td><td class="lt">05-A1, 05-A2</td><td>the exploratory findings manuscript chain, with 05-A1 the research counterpart and P1, P2 the publication runners</td></tr>
+  </table>
+  <p class="cap">Some lanes are live and some are cast and held. The migration registry in the program repository records the current step for each lane and actor.</p>
 
   <h2>Honest scope</h2>
   <p>The coordinating method was formalized in spring 2026, so it is recent and parts of it are still settling into habit. The discipline reduces context loss across long work and it leans on care more than on automation, so the honest claim is modest: it helps, and it is still being proven.</p>
 
-  <p class="foot">Method demo: <a href="index.html">the eight-step walkthrough</a> &middot; Full method: <a href="WALKTHROUGH.md">WALKTHROUGH.md</a> &middot; Source: <a href="https://github.com/GilRaitses/central-casting">github.com/GilRaitses/central-casting</a></p>
+  <p class="foot">Walkthrough deck: <a href="walkthrough-deck.html">the slide deck</a> &middot; Full method: <a href="WALKTHROUGH.md">WALKTHROUGH.md</a> &middot; Source: <a href="https://github.com/GilRaitses/central-casting">github.com/GilRaitses/central-casting</a></p>
 </main>
 </body>
 </html>

@@ -20,7 +20,7 @@ The audience builds with coding agents. They want two things. First, spend less.
 
 ## What Central Casting is
 
-Central Casting is a method for keeping long, multi-repository agent work coherent and auditable. It assigns a cast of agent lanes, where each lane is a role with explicit inputs, outputs and an escalation rule. A zero element called 00 sits above the lanes and orchestrates. The operating layer is Cursor. The durable state lives on disk, so the chat is disposable.
+Central Casting is a method for keeping long, multi-repository agent work coherent and auditable. It assigns a cast of agent lanes, where each lane is a team with explicit inputs, outputs and an escalation rule, run by a local orchestrator. A zero element called 00 sits above the lanes and orchestrates. The operating layer is Cursor. The durable state lives on disk, so the chat is disposable.
 
 ## The problem it solves
 
@@ -29,7 +29,7 @@ Long projects live in long threads. Each new session re-reads the thread, re-der
 ## The method, in eight steps
 
 1. Start from the open thread. Name the project and its scope in one sentence, so everything after has a fixed center.
-2. Name the work lanes. List the distinct kinds of work. Each becomes a lane with one job. A zero element called 00 orchestrates above them.
+2. Name the work lanes. List the distinct kinds of work. Each becomes a lane, a team with a lead actor that spawns supporting actors as the work compounds. A zero element called 00 orchestrates above them.
 3. Set up system surfaces. Give every file a surface class with one job: authoritative memos, derived reports, narrative logs or current state. The path alone then tells a reader what to trust.
 4. Create task home folders. Each piece of work gets a dated task home named yyyymmdd_slug, carrying a manifest, a readme, a step log and handoff notes.
 5. Add the schemas. The catalogue schema defines the lanes and folder rules. The work-home schema defines what every task folder must contain.
@@ -61,7 +61,7 @@ Keeping orchestration separate from execution is what lets the lanes stay focuse
 
 The program is organized along four columns the catalogue keeps separate, so any file or action resolves to a clear place.
 - Instrumentation: the tool layers that produce work, from open-ended reasoning to in-editor drafting.
-- Actors: the work lanes, each a role with one job, indexed under the O lane.
+- Actors: the workers inside each lane, named by the lane letter and an instance number, run by the lane's local orchestrator.
 - Contracts: the system surfaces and written handoffs that say what each lane reads and writes.
 - ID: the stable index that names each lane by number and letter.
 
@@ -71,7 +71,7 @@ Open-ended planning runs in a general chat so heavy orchestration reasoning stay
 
 ## The demo catalogue
 
-The orchestrator is the zero element of the O lane. The lettered lanes A through N and P are the work lanes. Letter O has no work lane, because orchestration is the role of the zero element.
+00 is the central orchestrator. The catalogue indexes sixteen work lanes by letter, A through P. The ID is the lane's local orchestrator, 01 through 05, which records step state for its actors and relays verified summaries up to 00. The actors that do the work in a lane are named by the lane letter and an instance number. The letter O names the orchestration lane itself, so it carries no separate worker team.
 
 | ID | Letter | Lane |
 |---|---|---|
@@ -90,20 +90,28 @@ The orchestrator is the zero element of the O lane. The lettered lanes A through
 | 03 | L | Modeling and experiments |
 | 04 | M | Writing and documentation |
 | 05 | N | Data pipelines and conversion |
-| 00 | O | Retired as a work lane. Orchestration is the role of the zero element 00. |
+| 00 | O | The orchestration lane itself. 00 is the central orchestrator and 01 through 05 are the per-lane local orchestrators, so the O letter carries no separate worker team. |
 | 05 | P | Packaging and presentation. Presentation, funding and paper-drafting coordination. |
 
 ## How aimez.ai runs on it
 
-The aimez.ai research program is the work this catalogue coordinates. Recent task homes map onto the lanes like this:
-- 00 orchestration: cross-repo local orchestration, packaging the program across the site, the manuscripts and the public demos.
+The aimez.ai research program is the work this catalogue coordinates. The deployment runs along two strands: the site and routing work, and the research grounding and manuscript chain.
+
+Site, product and routing:
+- 00 orchestration: cross-repo orchestration, packaging the program across the site, the manuscripts and the public demos.
 - 03 UX and documentation: aimez site identity, the notes pages and the figures gallery.
 - 04 patenting and authoring strategy: the StreetLight validation brief and provider disclosure boundaries.
 - 05 packaging: the advisor outreach packet and grant proposal revision alignment.
 - 03 theoretical research: the research partner packet, formal theory sharpness and the allocentric flocking bridge.
 - 04 topological modeling: the topological framing of the Manhattan graph work.
 - 03 product alignment: aimez program identity, holding the program coherent across surfaces.
-- 05 publication: the exploratory findings manuscript chain, presentation and funding coordination.
+
+Research grounding and manuscript chain, where the catalogue has cast multiple actors per lane:
+- 01 authority and excavation, actors A1 and A2: the trace reconstruction lane, excavation lineage and chain execution behind the published figures.
+- 01 research and lab, actors B1 and B2: the evidence closure lane and the figure-data chain.
+- 05 publication, actors 05-A1 and 05-A2: the exploratory findings manuscript chain, with 05-A1 the research counterpart and P1, P2 the publication runners.
+
+Some lanes are live and some are cast and held. The migration registry in the program repository records the current step for each lane and actor.
 
 ## The cost problem
 
@@ -208,10 +216,11 @@ Figure 5. A two-bar chart. Bar one, "single long agent," tall. Bar two, "Central
 
 ## Glossary
 
-- 00: the external orchestrator, the zero element of the lane system. It plans, routes and reconciles, and it does not execute.
-- Lane: one work area, 01 through 05, each with a local orchestrator home.
+- 00: the central orchestrator, the zero element of the lane system. It plans, routes and reconciles, and it does not execute.
+- Local orchestrator: a per-lane orchestrator, 01 through 05, that records step state for its lane and actors and relays verified summaries up to 00.
+- Lane: one work area, a team with a lead actor and supporting actors under its local orchestrator.
 - Task home: a dated folder inside a lane that holds one task.
-- Worker actor: an agent that does the execution inside a task home, named A1 through An.
+- Worker actor: an agent that does the execution inside a task home, named by the lane letter and an instance number, so lane B runs B1 and B2.
 - System surface: a file class with one job, namely memos, reports, logs or state.
 - Checkpoint: a recorded state change, the unit of memory.
 - Hydration: rebuilding a fresh agent from the state on disk.

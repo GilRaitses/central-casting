@@ -25,9 +25,10 @@ a fixed center.
 ## Step 2: Name the work lanes
 
 Read the thread and list the distinct kinds of work it contains. Each kind
-becomes a lane with one job. The example catalogue uses research, data
-pipelines, modeling, writing, and packaging. A zero element called 00 sits
-above the lanes as the orchestrator. See `example/actor_catalogue.yaml` and
+becomes a lane, a team with a lead actor that spawns supporting actors as the
+work compounds. The example catalogue uses research, data pipelines, modeling,
+writing and packaging. A zero element called 00 sits above the lanes as the
+central orchestrator. See `example/actor_catalogue.yaml` and
 `example/00_orchestrator.md`.
 
 ## Step 3: Set up system surfaces
@@ -81,11 +82,13 @@ becomes a system that holds its own memory.
 
 ## Glossary
 
-- 00: the zero element and orchestrator. It routes work and reconciles state, and leaves execution to the lanes.
-- Lane: one actor with one job, for example research, data pipelines, modeling, writing, or packaging.
-- System surface: a file class with one job, namely authoritative memos, derived reports, narrative logs, or current state.
-- Work home: one task folder inside a lane, named yyyymmdd_slug, with a manifest, a readme, a step log, and handoff notes.
-- Checkpoint: the unit of memory, a recorded state change in what a lane knows, can do, is blocked by, or is allowed to write.
+- 00: the zero element and central orchestrator. It routes work and reconciles state, and leaves execution to the lanes.
+- Local orchestrator: a per-lane orchestrator, numbered 01 through 05, that records step state for its lane and its actors and relays verified summaries up to 00.
+- Lane: a team that owns one kind of work such as research, data pipelines, modeling, writing or packaging. It runs a lead actor and spawns supporting actors as the work compounds.
+- Actor: a worker inside a lane, named by the lane letter and an instance number, so lane one runs A1 and A2 and lane two runs B1 and B2.
+- System surface: a file class with one job, namely authoritative memos, derived reports, narrative logs or current state.
+- Work home: one task folder inside a lane, named yyyymmdd_slug, with a manifest, a readme, a step log and handoff notes.
+- Checkpoint: the unit of memory, a recorded state change in what a lane knows, can do, is blocked by or is allowed to write.
 - Handoff: a written transfer of ownership or next-action authority between lanes or sessions.
 
 ## Honest scope
