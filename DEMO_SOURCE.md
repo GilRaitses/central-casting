@@ -19,7 +19,7 @@ structure that holds its own memory.
 | Term | One-line definition |
 |---|---|
 | 00 | The zero element and orchestrator. It routes work and reconciles state, and it leaves execution to the lanes. |
-| Lane | One actor with one job, for example research, data pipelines, modeling, writing, or packaging. |
+| Lane | A team that owns one kind of work such as research, data pipelines, modeling, writing or packaging. It runs a lead actor and spawns supporting actors as the work compounds, under the lane's local orchestrator. |
 | System surface | A file class with one job: authoritative memos, derived reports, narrative logs, or current state. |
 | Work home | One task folder inside a lane, named yyyymmdd_slug, carrying a manifest, a readme, a step log, and handoff notes. |
 | Checkpoint | The unit of memory: a recorded state change in what a lane knows, can do, is blocked by, or is allowed to write. |

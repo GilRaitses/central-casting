@@ -10,7 +10,7 @@
   <header class="site-nav">
     <a class="brand" href="index.html">Central Casting</a>
     <nav>
-      <a href="walkthrough.html">Walkthrough</a>
+      <a href="walkthrough-deck.html">Walkthrough</a>
       <a href="demo-source.html">Demo source</a>
       <a href="aimez-program.html">In practice</a>
     </nav>
@@ -33,7 +33,7 @@
       <div class="step">
         <span class="num">2</span>
         <h3>Name the work lanes</h3>
-        <p>List the distinct kinds of work the thread contains. Each kind becomes a lane with one job. A zero element called 00 sits above the lanes as the orchestrator.</p>
+        <p>List the distinct kinds of work the thread contains. Each kind becomes a lane, a team with a lead actor that spawns supporting actors as the work compounds. A zero element called 00 sits above the lanes as the central orchestrator.</p>
         <p class="ref">See <code>example/actor_catalogue.yaml</code> and <a href="example/orchestrator.html">00, the orchestrator</a>.</p>
       </div>
       <div class="step">
@@ -76,8 +76,10 @@
 
     <h2>Glossary</h2>
     <dl class="glossary">
-      <dt>00</dt><dd>The zero element and orchestrator. It routes work and reconciles state, and leaves execution to the lanes.</dd>
-      <dt>Lane</dt><dd>One actor with one job, for example research, data pipelines, modeling, writing or packaging.</dd>
+      <dt>00</dt><dd>The zero element and central orchestrator. It routes work and reconciles state, and leaves execution to the lanes.</dd>
+      <dt>Local orchestrator</dt><dd>A per-lane orchestrator, numbered 01 through 016, that records step state for its lane and its actors and relays verified summaries up to 00.</dd>
+      <dt>Lane</dt><dd>A team that owns one kind of work such as research, data pipelines, modeling, writing or packaging. It runs a lead actor and spawns supporting actors as the work compounds.</dd>
+      <dt>Actor</dt><dd>A worker inside a lane, named by the lane letter and an instance number, so lane one runs A1 and A2 and lane two runs B1 and B2.</dd>
       <dt>System surface</dt><dd>A file class with one job, namely authoritative memos, derived reports, narrative logs or current state.</dd>
       <dt>Work home</dt><dd>One task folder inside a lane, named yyyymmdd_slug, with a manifest, a readme, a step log and handoff notes.</dd>
       <dt>Checkpoint</dt><dd>The unit of memory, a recorded state change in what a lane knows, can do, is blocked by or is allowed to write.</dd>
@@ -87,7 +89,7 @@
     <h2>Honest scope</h2>
     <p>This method is recent and still maturing. The checkpoint discipline reduces context loss, it depends on care, and a change in one lane reaches another only when it is carried there on purpose. Naming the limit is part of the practice.</p>
 
-    <p class="foot">Demo page: <a href="index.html">the eight steps in cards</a> &middot; Slide source: <a href="demo-source.html">demo source</a> &middot; In practice: <a href="aimez-program.html">the aimez.ai program</a> &middot; Source: <a href="https://github.com/GilRaitses/central-casting">GitHub</a></p>
+    <p class="foot">Slide deck: <a href="walkthrough-deck.html">the walkthrough deck</a> &middot; Demo page: <a href="index.html">the eight steps in cards</a> &middot; In practice: <a href="aimez-program.html">the aimez.ai program</a> &middot; Source: <a href="https://github.com/GilRaitses/central-casting">GitHub</a></p>
   </main>
 </body>
 </html>

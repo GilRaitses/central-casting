@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Central Casting: the walkthrough deck</title>
+  <style>
+    :root {
+      --bg:#eef7fc; --card:#ffffff; --ink:#46566a; --muted:#8aa0b2;
+      --blue:#7ec8e3; --blue-deep:#4a90c2; --pink:#f3b6cd; --pink-deep:#e07a9f;
+      --cream:#fff4e0; --border:#cfe9f5; --code-bg:#f4fbff;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      color: var(--ink);
+      background: linear-gradient(160deg, #eef7fc 0%, #fbf0f5 100%);
+      overflow: hidden;
+    }
+    .deck { height: 100vh; width: 100vw; position: relative; }
+    .slide {
+      position: absolute; inset: 0;
+      display: none;
+      flex-direction: column; justify-content: center;
+      padding: clamp(1.4rem, 6vw, 5rem) clamp(1.4rem, 9vw, 8rem);
+      animation: fade 0.35s ease;
+    }
+    .slide.active { display: flex; }
+    @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+    .kicker { color: var(--pink-deep); font-size: clamp(0.8rem, 1.4vw, 1rem); letter-spacing: 0.12em; text-transform: uppercase; margin: 0 0 0.8rem; }
+    .kicker::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--pink); margin-right: 0.5rem; vertical-align: middle; }
+    h1 { font-size: clamp(2rem, 5.5vw, 4rem); line-height: 1.05; margin: 0 0 1rem; color: var(--blue-deep); font-weight: 700; }
+    h2 { font-size: clamp(1.5rem, 3.6vw, 2.6rem); line-height: 1.12; margin: 0 0 1rem; color: var(--blue-deep); font-weight: 700; }
+    p.lead { font-size: clamp(1rem, 2vw, 1.5rem); color: var(--ink); max-width: 60ch; margin: 0 0 0.8rem; }
+    p.sub { font-size: clamp(0.95rem, 1.7vw, 1.3rem); color: var(--pink-deep); margin: 0 0 1.2rem; }
+    .def { font-size: clamp(1rem, 1.9vw, 1.4rem); color: var(--ink); max-width: 62ch; }
+    .def strong { color: var(--blue-deep); }
+
+    ul, ol { font-size: clamp(0.98rem, 1.8vw, 1.35rem); max-width: 64ch; margin: 0.3rem 0; padding-left: 1.4rem; }
+    li { margin-bottom: 0.55rem; }
+    li b { color: var(--blue-deep); }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.9rem; max-width: 70ch; }
+    .tile { background: var(--card); border: 1px solid var(--border); border-radius: 0.9rem; padding: 0.9rem 1.05rem; }
+    .tile h3 { margin: 0 0 0.3rem; color: var(--pink-deep); font-size: clamp(0.95rem, 1.5vw, 1.15rem); }
+    .tile p { margin: 0; font-size: clamp(0.85rem, 1.4vw, 1.05rem); color: var(--ink); }
+
+    table { width: 100%; max-width: 78ch; border-collapse: collapse; background: var(--card); border-radius: 0.6rem; overflow: hidden; font-size: clamp(0.78rem, 1.3vw, 1.02rem); }
+    th, td { text-align: left; padding: 0.4rem 0.7rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { color: var(--blue-deep); background: #e6f4fb; font-weight: 600; }
+    td.lt { color: var(--pink-deep); font-weight: 600; white-space: nowrap; }
+
+    .flow { display: flex; align-items: center; flex-wrap: wrap; gap: 0.6rem; font-size: clamp(0.85rem, 1.4vw, 1.1rem); }
+    .node { background: var(--card); border: 2px solid var(--blue); border-radius: 0.8rem; padding: 0.6rem 0.95rem; font-weight: 600; color: var(--blue-deep); }
+    .node.pink { border-color: var(--pink-deep); color: var(--pink-deep); background: #fdeef4; }
+    .arrow { color: var(--blue); font-size: 1.4rem; }
+
+    .links a { display: inline-block; margin: 0.3rem 1rem 0.3rem 0; color: var(--blue-deep); font-size: clamp(0.95rem, 1.6vw, 1.2rem); font-weight: 600; text-decoration: none; border-bottom: 2px solid var(--pink); padding-bottom: 1px; }
+    .links a:hover { color: var(--pink-deep); }
+
+    .hud { position: fixed; bottom: 1.1rem; right: 1.3rem; display: flex; align-items: center; gap: 0.8rem; z-index: 10; }
+    .count { color: var(--muted); font-size: 0.85rem; font-variant-numeric: tabular-nums; }
+    .nav-btn { width: 2.2rem; height: 2.2rem; border-radius: 50%; border: 1px solid var(--border); background: var(--card); color: var(--blue-deep); font-size: 1.1rem; cursor: pointer; line-height: 1; }
+    .nav-btn:hover { background: #fdeef4; border-color: var(--pink); }
+    .home-link { position: fixed; top: 1.1rem; left: 1.3rem; z-index: 10; color: var(--blue-deep); text-decoration: none; font-weight: 700; font-size: 0.95rem; }
+    .home-link::before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--pink); margin-right: 0.4rem; vertical-align: middle; }
+    .progress { position: fixed; top: 0; left: 0; height: 4px; background: var(--pink-deep); width: 0; z-index: 11; transition: width 0.3s ease; }
+    .hint { position: fixed; bottom: 1.2rem; left: 1.3rem; color: var(--muted); font-size: 0.78rem; z-index: 10; }
+  </style>
+</head>
+<body>
+  <a class="home-link" href="index.html">Central Casting</a>
+  <div class="progress" id="progress"></div>
+  <div class="deck" id="deck">
+
+    <section class="slide active">
+      <p class="kicker">A method demo</p>
+      <h1>From a conversation thread to a structured project</h1>
+      <p class="sub">The method, written as a short deck. The operating layer is Cursor.</p>
+      <p class="lead">One open thread grows into a multi-session system: work lanes, system surfaces, task home folders and schemas that hold their own memory.</p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">The problem</p>
+      <h2>Long projects live in long threads</h2>
+      <p class="lead">Each new session re-reads the thread, re-derives decisions and loses state, while work across several repositories drifts apart.</p>
+      <p class="lead">This method gives the work a structure that holds its own memory.</p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">The shape</p>
+      <h2>Eight steps</h2>
+      <ol>
+        <li><b>Start from the open thread.</b> Name the project and its scope in one sentence.</li>
+        <li><b>Name the work lanes.</b> Each kind of work becomes a lane, with 00 above them.</li>
+        <li><b>Set up system surfaces.</b> Give every file a class so the path says what to trust.</li>
+        <li><b>Create task home folders.</b> One dated folder per task, with a fixed file set.</li>
+        <li><b>Add the schemas.</b> The catalogue and the work-home schema hold it together.</li>
+        <li><b>Record checkpoints as memory.</b> A recorded state change is the unit of memory.</li>
+        <li><b>Keep a local and cloud boundary.</b> Memory stays local, heavy work goes to cloud agents.</li>
+        <li><b>Hand off in writing.</b> Work moves between lanes with a written contract.</li>
+      </ol>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">Concept &middot; lanes and actors</p>
+      <h2>A lane is a team, not a single worker</h2>
+      <p class="def"><strong>Lane.</strong> A team that owns one kind of work such as research, data pipelines, modeling, writing or packaging. It runs a lead actor and spawns supporting actors as the work compounds.</p>
+      <p class="def" style="margin-top:1rem;"><strong>Actor.</strong> A worker inside a lane, named by the lane letter and an instance number, so lane one runs A1 and A2 and lane two runs B1 and B2.</p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">Concept &middot; orchestration</p>
+      <h2>00 is central, the lanes orchestrate locally</h2>
+      <p class="def" style="margin-bottom:1.2rem;"><strong>00</strong> is the central orchestrator. It routes work and reconciles state, and leaves execution to the lanes. Each lane has a <strong>local orchestrator</strong>, 01 through 016, that records step state for its actors and relays verified summaries up to 00.</p>
+      <div class="flow">
+        <span class="node pink">00 central</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">01 lane orchestrator</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">A1, A2 actors</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node pink">step state up to 00</span>
+      </div>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">Step 3</p>
+      <h2>System surfaces</h2>
+      <p class="lead">Give every file a surface class with one job, so a reader knows from the path alone what to trust.</p>
+      <div class="grid">
+        <div class="tile"><h3>Memos</h3><p>Authoritative contracts and decisions.</p></div>
+        <div class="tile"><h3>Reports</h3><p>Derived artifacts and analysis outputs.</p></div>
+        <div class="tile"><h3>Logs</h3><p>Day logs and narrative.</p></div>
+        <div class="tile"><h3>State</h3><p>Current system state.</p></div>
+      </div>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">Steps 4 and 5</p>
+      <h2>Task homes and schemas</h2>
+      <p class="def"><strong>Task home.</strong> One folder inside a lane named <code>yyyymmdd_slug</code>, carrying a manifest, a readme, a step log and handoff notes. A session opens the task home and hydrates from it.</p>
+      <p class="def" style="margin-top:1rem;"><strong>Two schemas.</strong> The catalogue schema defines the lanes and the folder rules. The work-home schema defines what every task folder must contain.</p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">Step 6</p>
+      <h2>Checkpoints are the unit of memory</h2>
+      <p class="lead">A checkpoint is a recorded state change in what a lane knows, can do, is blocked by or is allowed to write.</p>
+      <p class="lead">The types cover hydration, pre-write inventory, worker reports, gate transitions, blockers, handoffs, commits and authority changes.</p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">Steps 7 and 8</p>
+      <h2>Local memory, written handoffs</h2>
+      <p class="def"><strong>Local and cloud boundary.</strong> The memory and audit layer stays local. Production work such as formatting, packaging and cross-repository assembly can be delegated to cloud agents.</p>
+      <p class="def" style="margin-top:1rem;"><strong>Handoff.</strong> When work moves between lanes or sessions, the contract is written in the task home, so the next agent takes over with the context intact.</p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">What this buys you</p>
+      <h2>The thread becomes a system that remembers</h2>
+      <p class="lead">A session that starts weeks later opens the relevant task home, reads the recent checkpoints and continues with the thread intact.</p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">In practice &middot; the catalogue</p>
+      <h2>Sixteen lanes, A through P</h2>
+      <p class="lead" style="margin-bottom:0.8rem;">The ID is the lane's local orchestrator, 01 through 016, under the central 00. Actors take the lane letter plus an instance number.</p>
+      <table>
+        <tr><th>ID</th><th>Letter</th><th>Lane</th></tr>
+        <tr><td class="lt">O1</td><td class="lt">A</td><td>Authority / System / Excavation / Validation</td></tr>
+        <tr><td class="lt">O2</td><td class="lt">B</td><td>Research / Analysis / Experimental Lab</td></tr>
+        <tr><td class="lt">O4</td><td class="lt">D</td><td>UX / Documentation</td></tr>
+        <tr><td class="lt">O8</td><td class="lt">H</td><td>Topological Modeling</td></tr>
+        <tr><td class="lt">O12</td><td class="lt">L</td><td>Product Alignment</td></tr>
+        <tr><td class="lt">O16</td><td class="lt">P</td><td>Publication / Exploratory Findings Manuscript</td></tr>
+      </table>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">In practice &middot; aimez.ai</p>
+      <h2>The cast deployed on a real program</h2>
+      <table>
+        <tr><th>Lane</th><th>Actors</th><th>What it carried</th></tr>
+        <tr><td class="lt">O1 Authority</td><td class="lt">A1, A2</td><td>trace reconstruction and excavation lineage behind the figures</td></tr>
+        <tr><td class="lt">O2 Research</td><td class="lt">B1, B2</td><td>the evidence closure lane and the figure-data chain</td></tr>
+        <tr><td class="lt">O16 Publication</td><td class="lt">R16, P1, P2</td><td>the exploratory findings manuscript chain</td></tr>
+        <tr><td class="lt">O4 to O12</td><td class="lt">site lanes</td><td>the aimez.ai site, the routing demo and program alignment</td></tr>
+      </table>
+      <p class="sub" style="margin-top:1rem;">Some lanes are live and some are cast and held.</p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">Honest scope</p>
+      <h2>Recent and still maturing</h2>
+      <p class="lead">The checkpoint discipline reduces context loss, and it depends on care. A change in one lane reaches another when it is carried there on purpose.</p>
+      <p class="lead">Naming the limit is part of the practice.</p>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">Read more</p>
+      <h2>Go deeper</h2>
+      <p class="lead">The full method in prose, plus the worked program and the cost story.</p>
+      <div class="links">
+        <a href="walkthrough.html">Full walkthrough, reading version</a>
+        <a href="WALKTHROUGH.md">WALKTHROUGH.md</a>
+        <a href="aimez-program.html">Central Casting in practice</a>
+        <a href="event.html">Event demo: kill and respawn</a>
+        <a href="https://github.com/GilRaitses/central-casting">Source on GitHub</a>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="hud">
+    <button class="nav-btn" id="prev" aria-label="Previous slide">&larr;</button>
+    <span class="count" id="count">1 / 14</span>
+    <button class="nav-btn" id="next" aria-label="Next slide">&rarr;</button>
+  </div>
+  <p class="hint">Arrow keys or space to move</p>
+
+  <script>
+    (function () {
+      var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+      var i = 0;
+      var count = document.getElementById('count');
+      var progress = document.getElementById('progress');
+      function show(n) {
+        i = Math.max(0, Math.min(slides.length - 1, n));
+        slides.forEach(function (s, k) { s.classList.toggle('active', k === i); });
+        count.textContent = (i + 1) + ' / ' + slides.length;
+        progress.style.width = ((i) / (slides.length - 1) * 100) + '%';
+        if (location.hash !== '#' + (i + 1)) history.replaceState(null, '', '#' + (i + 1));
+      }
+      function next() { show(i + 1); }
+      function prev() { show(i - 1); }
+      document.getElementById('next').addEventListener('click', next);
+      document.getElementById('prev').addEventListener('click', prev);
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); next(); }
+        else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prev(); }
+        else if (e.key === 'Home') { show(0); }
+        else if (e.key === 'End') { show(slides.length - 1); }
+      });
+      var start = parseInt((location.hash || '').replace('#', ''), 10);
+      show(isNaN(start) ? 0 : start - 1);
+    })();
+  </script>
+</body>
+</html>
