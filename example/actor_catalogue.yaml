@@ -9,7 +9,7 @@ catalogue:
   system_folder: .cc
   catalogue_root: .cc/catalogue
   root_rule: >-
-    The catalogue root holds actor folders only, named 00, 01, 02, and onward.
+    The catalogue root holds actor folders only, named 00, 01, 02 and onward.
     Functional buckets (for example notes, drafts, assets) are not valid
     root-level folders.
 
