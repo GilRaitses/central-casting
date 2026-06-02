@@ -2,7 +2,7 @@
 
 A public demo of a method for turning one open conversation thread about a
 project into a structured, multi-session system: work lanes, system surfaces,
-task home folders, and schemas. The operating layer is Cursor.
+task home folders and schemas. The operating layer is Cursor.
 
 ## What is here
 
@@ -15,6 +15,7 @@ task home folders, and schemas. The operating layer is Cursor.
   - `checkpoint_policy.yaml` defines checkpoints as the unit of memory.
   - `STEP_LOG.example.md` shows a real checkpoint history.
 - `index.html` is the live demo page, served through GitHub Pages.
+- `aimez-program.html` is the worked counterpart: the real catalogue, the tooling layers and how the aimez.ai research program runs on this method.
 
 ## How to use it
 

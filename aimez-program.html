@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Central Casting in practice: the aimez.ai research program</title>
+  <style>
+    :root { --bg:#1c2130; --panel:#242b3d; --ink:#e8eef5; --accent:#9ee7ef; --muted:#aeb9c7; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif; line-height: 1.6; color: var(--ink); background: var(--bg); margin: 0; padding: 1.5rem; }
+    main { max-width: 880px; margin: 0 auto; }
+    h1 { font-size: 2rem; line-height: 1.1; margin: 0 0 0.4rem; color: #c8fdff; font-weight: 300; }
+    .subtitle { color: var(--accent); margin: 0 0 0.4rem; font-size: 1.02rem; }
+    .scope { color: var(--muted); font-size: 0.9rem; margin: 0 0 1.6rem; }
+    h2 { font-size: 1.1rem; color: var(--accent); margin: 2rem 0 0.6rem; }
+    h3 { font-size: 0.98rem; margin: 1.2rem 0 0.3rem; color: #c8fdff; }
+    p { color: #d7e3e8; }
+    .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0.8rem; margin: 0.8rem 0; }
+    .col { background: var(--panel); border-radius: 0.6rem; padding: 0.8rem 0.9rem; border: 1px solid rgba(255,255,255,0.06); }
+    .col h4 { margin: 0 0 0.3rem; color: var(--accent); font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; }
+    .col p { margin: 0; font-size: 0.88rem; }
+    .flow { background: var(--panel); border-radius: 0.6rem; padding: 0.8rem 0.9rem; border: 1px solid rgba(255,255,255,0.06); font-size: 0.92rem; color: #d7e3e8; }
+    table { width: 100%; border-collapse: collapse; margin: 0.6rem 0 1rem; font-size: 0.9rem; }
+    th, td { text-align: left; padding: 0.4rem 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); vertical-align: top; }
+    th { color: var(--accent); font-weight: 600; }
+    td.id { font-family: ui-monospace, Menlo, monospace; color: #c8fdff; white-space: nowrap; }
+    td.lt { color: var(--muted); white-space: nowrap; }
+    .o0 td { background: rgba(158,231,239,0.06); }
+    .retired td { color: var(--muted); }
+    .foot { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.14); color: var(--muted); font-size: 0.88rem; }
+    .foot a, a { color: var(--accent); }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Central Casting in practice</h1>
+  <p class="subtitle">How the aimez.ai research program runs on the method.</p>
+  <p class="scope">This page shows the real catalogue and tooling behind the aimez.ai research program, as a worked counterpart to the sanitized demo. The operating layer is Cursor.</p>
+
+  <h2>The four columns</h2>
+  <p>The program is organized along four columns that the catalogue keeps separate, so any file or action resolves to a clear place.</p>
+  <div class="cols">
+    <div class="col"><h4>Instrumentation</h4><p>The tool layers that produce work, from open-ended reasoning to in-editor drafting.</p></div>
+    <div class="col"><h4>Actors</h4><p>The work lanes, each a role with one job, indexed under the O lane.</p></div>
+    <div class="col"><h4>Contracts</h4><p>The system surfaces and written handoffs that say what each lane reads and writes.</p></div>
+    <div class="col"><h4>ID</h4><p>The stable index that names each lane by number, letter and roman numeral.</p></div>
+  </div>
+
+  <h2>Instrumentation: the drafting layers</h2>
+  <p class="flow">Open-ended planning runs in a general chat so heavy orchestration reasoning stays off the in-editor token budget. Cursor is the operating layer that reads and writes the repository. GitHub Copilot drafts inline inside the editor. Every layer is grounded in repository source, so the work stays anchored to what is committed.</p>
+
+  <h2>Actors: the work lanes</h2>
+  <p>The orchestrator is the zero element of the O lane. The lettered lanes A through N and P are the work lanes. Letter O has no work lane, because orchestration is the role of the zero element.</p>
+  <table>
+    <tr><th>ID</th><th>Letter</th><th>Lane</th></tr>
+    <tr class="o0"><td class="id">O0</td><td class="lt">zero element</td><td>Orchestration and coordinating. Intake, routing, state reconciliation, catalogue hygiene and cross-repo packaging. It does not execute lane work.</td></tr>
+    <tr><td class="id">O1</td><td class="lt">A / I</td><td>Authority / System / Excavation / Validation / Chain Execution</td></tr>
+    <tr><td class="id">O2</td><td class="lt">B / II</td><td>Research / Analysis / Experimental Lab</td></tr>
+    <tr><td class="id">O3</td><td class="lt">C / III</td><td>Control System Infra Unification</td></tr>
+    <tr><td class="id">O4</td><td class="lt">D / IV</td><td>UX / Documentation</td></tr>
+    <tr><td class="id">O5</td><td class="lt">E / V</td><td>Patenting / Authoring Strategy</td></tr>
+    <tr><td class="id">O6</td><td class="lt">F / VI</td><td>Packaging / Boundary Tracking / Presentation Slides</td></tr>
+    <tr><td class="id">O7</td><td class="lt">G / VII</td><td>Theoretical Research / Interdisciplinary Collaboration</td></tr>
+    <tr><td class="id">O8</td><td class="lt">H / VIII</td><td>Topological Modeling / Hatcher</td></tr>
+    <tr><td class="id">O9</td><td class="lt">I / IX</td><td>Integration / Frontend Testing</td></tr>
+    <tr><td class="id">O10</td><td class="lt">J / X</td><td>Production Versioning / Repo Hygiene</td></tr>
+    <tr><td class="id">O11</td><td class="lt">K / XI</td><td>Knowledge Base / ROM Interpretability</td></tr>
+    <tr><td class="id">O12</td><td class="lt">L / XII</td><td>Product Alignment</td></tr>
+    <tr><td class="id">O13</td><td class="lt">M / XIII</td><td>Product Misalignment</td></tr>
+    <tr><td class="id">O14</td><td class="lt">N / XIV</td><td>New Features R&amp;D</td></tr>
+    <tr class="retired"><td class="id">O15</td><td class="lt">O / XV</td><td>Retired as a work lane. Orchestration is the role of the zero element O0.</td></tr>
+    <tr><td class="id">O16</td><td class="lt">P / XVI</td><td>Publication / Exploratory Findings Manuscript. Presentation, funding and paper-drafting coordination.</td></tr>
+  </table>
+
+  <h2>Contracts: surfaces and handoffs</h2>
+  <p>Every file carries a surface class so a reader knows from the path alone whether it is an authoritative memo, a derived report, a narrative log or current state. Each work lane keeps dated task homes named yyyymmdd_slug, and each home holds a manifest, a readme, a step log and written handoffs for the orchestrator, the research role and the runner. A session reads the step log first, so it resumes with the lane history intact.</p>
+
+  <h2>How aimez.ai runs on it</h2>
+  <p>The aimez.ai research program is the work this catalogue coordinates. Recent task homes map onto the lanes like this.</p>
+  <table>
+    <tr><th>Lane</th><th>aimez.ai work</th></tr>
+    <tr><td class="lt">O0 orchestration</td><td>cross-repo local orchestration, packaging the program across the site, the manuscripts and the public demos</td></tr>
+    <tr><td class="lt">O4 UX / Documentation</td><td>aimez site identity, the notes pages and the figures gallery</td></tr>
+    <tr><td class="lt">O5 Patenting / Authoring Strategy</td><td>the StreetLight validation brief and provider disclosure boundaries</td></tr>
+    <tr><td class="lt">O6 Packaging</td><td>the advisor outreach packet and grant proposal revision alignment</td></tr>
+    <tr><td class="lt">O7 Theoretical Research</td><td>the research partner packet, formal theory sharpness and the allocentric flocking bridge</td></tr>
+    <tr><td class="lt">O8 Topological Modeling</td><td>the topological framing of the Manhattan graph work</td></tr>
+    <tr><td class="lt">O12 Product Alignment</td><td>aimez program identity, holding the program coherent across surfaces</td></tr>
+    <tr><td class="lt">O16 Publication</td><td>the exploratory findings manuscript chain, presentation and funding coordination</td></tr>
+  </table>
+
+  <h2>Honest scope</h2>
+  <p>The coordinating method was formalized in spring 2026, so it is recent and parts of it are still settling into habit. The discipline reduces context loss across long work and it leans on care more than on automation, so the honest claim is modest: it helps, and it is still being proven.</p>
+
+  <p class="foot">Method demo: <a href="index.html">the eight-step walkthrough</a> &middot; Full method: <a href="WALKTHROUGH.md">WALKTHROUGH.md</a> &middot; Source: <a href="https://github.com/GilRaitses/central-casting">github.com/GilRaitses/central-casting</a></p>
+</main>
+</body>
+</html>
