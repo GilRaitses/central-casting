@@ -5,30 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Central Casting in practice: the aimez.ai research program</title>
   <style>
-    :root { --bg:#1c2130; --panel:#242b3d; --ink:#e8eef5; --accent:#9ee7ef; --muted:#aeb9c7; }
+    :root {
+      --bg:#eef7fc; --card:#ffffff; --ink:#46566a; --muted:#8aa0b2;
+      --blue:#7ec8e3; --blue-deep:#4a90c2; --pink:#f3b6cd; --pink-deep:#e07a9f;
+      --cream:#fff4e0; --border:#cfe9f5;
+    }
     * { box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif; line-height: 1.6; color: var(--ink); background: var(--bg); margin: 0; padding: 1.5rem; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif; line-height: 1.62; color: var(--ink); background: var(--bg); margin: 0; padding: 1.5rem; }
     main { max-width: 880px; margin: 0 auto; }
-    h1 { font-size: 2rem; line-height: 1.1; margin: 0 0 0.4rem; color: #c8fdff; font-weight: 300; }
-    .subtitle { color: var(--accent); margin: 0 0 0.4rem; font-size: 1.02rem; }
+    h1 { font-size: 2rem; line-height: 1.1; margin: 0 0 0.3rem; color: var(--blue-deep); font-weight: 600; }
+    .subtitle { color: var(--pink-deep); margin: 0 0 0.3rem; font-size: 1.02rem; }
     .scope { color: var(--muted); font-size: 0.9rem; margin: 0 0 1.6rem; }
-    h2 { font-size: 1.1rem; color: var(--accent); margin: 2rem 0 0.6rem; }
-    h3 { font-size: 0.98rem; margin: 1.2rem 0 0.3rem; color: #c8fdff; }
-    p { color: #d7e3e8; }
+    h2 { font-size: 1.12rem; color: var(--blue-deep); margin: 2rem 0 0.5rem; }
+    h2::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--pink); margin-right: 0.5rem; vertical-align: middle; }
+    p { color: var(--ink); }
     .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0.8rem; margin: 0.8rem 0; }
-    .col { background: var(--panel); border-radius: 0.6rem; padding: 0.8rem 0.9rem; border: 1px solid rgba(255,255,255,0.06); }
-    .col h4 { margin: 0 0 0.3rem; color: var(--accent); font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; }
+    .col { background: var(--card); border-radius: 0.8rem; padding: 0.85rem 0.95rem; border: 1px solid var(--border); }
+    .col h4 { margin: 0 0 0.3rem; color: var(--pink-deep); font-size: 0.8rem; letter-spacing: 0.05em; text-transform: uppercase; }
     .col p { margin: 0; font-size: 0.88rem; }
-    .flow { background: var(--panel); border-radius: 0.6rem; padding: 0.8rem 0.9rem; border: 1px solid rgba(255,255,255,0.06); font-size: 0.92rem; color: #d7e3e8; }
-    table { width: 100%; border-collapse: collapse; margin: 0.6rem 0 1rem; font-size: 0.9rem; }
-    th, td { text-align: left; padding: 0.4rem 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); vertical-align: top; }
-    th { color: var(--accent); font-weight: 600; }
-    td.id { font-family: ui-monospace, Menlo, monospace; color: #c8fdff; white-space: nowrap; }
+    .diagram { background: var(--card); border: 1px solid var(--border); border-radius: 0.9rem; padding: 0.9rem 1rem; margin: 0.7rem 0 0.3rem; }
+    .diagram svg { width: 100%; height: auto; display: block; }
+    .cap { color: var(--muted); font-size: 0.82rem; margin: 0.3rem 0 1rem; }
+    table { width: 100%; border-collapse: collapse; margin: 0.6rem 0 1rem; font-size: 0.9rem; background: var(--card); border-radius: 0.6rem; overflow: hidden; }
+    th, td { text-align: left; padding: 0.45rem 0.6rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { color: var(--blue-deep); font-weight: 600; background: #e6f4fb; }
+    td.id { font-family: ui-monospace, Menlo, monospace; color: var(--blue-deep); font-weight: 600; white-space: nowrap; }
     td.lt { color: var(--muted); white-space: nowrap; }
-    .o0 td { background: rgba(158,231,239,0.06); }
+    .o0 td { background: #fdeef4; }
     .retired td { color: var(--muted); }
-    .foot { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.14); color: var(--muted); font-size: 0.88rem; }
-    .foot a, a { color: var(--accent); }
+    .foot { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.88rem; }
+    a { color: var(--blue-deep); }
   </style>
 </head>
 <body>
@@ -43,37 +49,134 @@
     <div class="col"><h4>Instrumentation</h4><p>The tool layers that produce work, from open-ended reasoning to in-editor drafting.</p></div>
     <div class="col"><h4>Actors</h4><p>The work lanes, each a role with one job, indexed under the O lane.</p></div>
     <div class="col"><h4>Contracts</h4><p>The system surfaces and written handoffs that say what each lane reads and writes.</p></div>
-    <div class="col"><h4>ID</h4><p>The stable index that names each lane by number, letter and roman numeral.</p></div>
+    <div class="col"><h4>ID</h4><p>The stable index that names each lane by number and letter.</p></div>
   </div>
 
   <h2>Instrumentation: the drafting layers</h2>
-  <p class="flow">Open-ended planning runs in a general chat so heavy orchestration reasoning stays off the in-editor token budget. Cursor is the operating layer that reads and writes the repository. GitHub Copilot drafts inline inside the editor. Every layer is grounded in repository source, so the work stays anchored to what is committed.</p>
+  <div class="diagram">
+    <svg viewBox="0 0 762 232" role="img" aria-label="Open-ended planning in a general chat feeds Cursor, which feeds GitHub Copilot, all grounded in repository source">
+      <defs>
+        <marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L7,3 L0,6 z" fill="#7ec8e3"/></marker>
+      </defs>
+      <g font-family="sans-serif">
+        <rect x="24" y="24" width="190" height="66" rx="12" fill="#ffffff" stroke="#7ec8e3" stroke-width="2"/>
+        <text x="119" y="52" text-anchor="middle" font-size="15" font-weight="600" fill="#3f5161">OpenAI Chat</text>
+        <text x="119" y="71" text-anchor="middle" font-size="12" fill="#6a8198">open-ended planning</text>
 
-  <h2>Actors: the work lanes</h2>
-  <p>The orchestrator is the zero element of the O lane. The lettered lanes A through N and P are the work lanes. Letter O has no work lane, because orchestration is the role of the zero element.</p>
+        <rect x="286" y="24" width="190" height="66" rx="12" fill="#ffffff" stroke="#7ec8e3" stroke-width="2"/>
+        <text x="381" y="52" text-anchor="middle" font-size="15" font-weight="600" fill="#3f5161">Cursor</text>
+        <text x="381" y="71" text-anchor="middle" font-size="12" fill="#6a8198">operating layer</text>
+
+        <rect x="548" y="24" width="190" height="66" rx="12" fill="#ffffff" stroke="#7ec8e3" stroke-width="2"/>
+        <text x="643" y="52" text-anchor="middle" font-size="15" font-weight="600" fill="#3f5161">GitHub Copilot</text>
+        <text x="643" y="71" text-anchor="middle" font-size="12" fill="#6a8198">inline drafting</text>
+
+        <line x1="214" y1="57" x2="284" y2="57" stroke="#7ec8e3" stroke-width="2" marker-end="url(#ar)"/>
+        <line x1="476" y1="57" x2="546" y2="57" stroke="#7ec8e3" stroke-width="2" marker-end="url(#ar)"/>
+
+        <rect x="24" y="158" width="714" height="52" rx="12" fill="#fff4e0" stroke="#f3b6cd" stroke-width="2"/>
+        <text x="381" y="189" text-anchor="middle" font-size="13" font-weight="600" fill="#c76f93">grounded in repository source</text>
+
+        <line x1="119" y1="158" x2="119" y2="92" stroke="#f3b6cd" stroke-width="2" marker-end="url(#ar)"/>
+        <line x1="381" y1="158" x2="381" y2="92" stroke="#f3b6cd" stroke-width="2" marker-end="url(#ar)"/>
+        <line x1="643" y1="158" x2="643" y2="92" stroke="#f3b6cd" stroke-width="2" marker-end="url(#ar)"/>
+      </g>
+    </svg>
+  </div>
+  <p class="cap">Open-ended planning runs in a general chat so heavy orchestration reasoning stays off the in-editor token budget. Cursor reads and writes the repository, GitHub Copilot drafts inline and every layer is grounded in repository source.</p>
+
+  <h2>Actors: orchestration and the work lanes</h2>
+  <div class="diagram">
+    <svg viewBox="0 0 762 288" role="img" aria-label="The O0 orchestrator routes work to four clusters of lanes">
+      <defs>
+        <marker id="ar2" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L7,3 L0,6 z" fill="#7ec8e3"/></marker>
+      </defs>
+      <g font-family="sans-serif">
+        <rect x="24" y="108" width="160" height="76" rx="14" fill="#f7d6e3" stroke="#e07a9f" stroke-width="2"/>
+        <text x="104" y="142" text-anchor="middle" font-size="20" font-weight="700" fill="#b8567f">O0</text>
+        <text x="104" y="163" text-anchor="middle" font-size="12" fill="#a05c79">orchestrator</text>
+
+        <rect x="332" y="18" width="406" height="52" rx="12" fill="#eaf6fc" stroke="#7ec8e3" stroke-width="2"/>
+        <text x="350" y="40" font-size="13" font-weight="600" fill="#3f5161">Build and validate</text>
+        <text x="350" y="58" font-size="12" fill="#6a8198">O1 Authority &#183; O3 Control &#183; O9 Integration &#183; O10 Versioning</text>
+
+        <rect x="332" y="84" width="406" height="52" rx="12" fill="#eaf6fc" stroke="#7ec8e3" stroke-width="2"/>
+        <text x="350" y="106" font-size="13" font-weight="600" fill="#3f5161">Research and theory</text>
+        <text x="350" y="124" font-size="12" fill="#6a8198">O2 Research &#183; O7 Theory &#183; O8 Topological modeling</text>
+
+        <rect x="332" y="150" width="406" height="52" rx="12" fill="#eaf6fc" stroke="#7ec8e3" stroke-width="2"/>
+        <text x="350" y="172" font-size="13" font-weight="600" fill="#3f5161">Product and docs</text>
+        <text x="350" y="190" font-size="12" fill="#6a8198">O4 UX &#183; O11 Knowledge &#183; O12 Alignment &#183; O13 Misalignment &#183; O14 R&amp;D</text>
+
+        <rect x="332" y="216" width="406" height="52" rx="12" fill="#eaf6fc" stroke="#7ec8e3" stroke-width="2"/>
+        <text x="350" y="238" font-size="13" font-weight="600" fill="#3f5161">Strategy and publication</text>
+        <text x="350" y="256" font-size="12" fill="#6a8198">O5 Patenting &#183; O6 Packaging &#183; O16 Publication</text>
+
+        <line x1="184" y1="146" x2="330" y2="44" stroke="#7ec8e3" stroke-width="2" marker-end="url(#ar2)"/>
+        <line x1="184" y1="146" x2="330" y2="110" stroke="#7ec8e3" stroke-width="2" marker-end="url(#ar2)"/>
+        <line x1="184" y1="146" x2="330" y2="176" stroke="#7ec8e3" stroke-width="2" marker-end="url(#ar2)"/>
+        <line x1="184" y1="146" x2="330" y2="242" stroke="#7ec8e3" stroke-width="2" marker-end="url(#ar2)"/>
+      </g>
+    </svg>
+  </div>
+  <p class="cap">The orchestrator is the zero element of the O lane. It routes work to the lettered lanes A through N and P. Letter O has no work lane, because orchestration is the role of the zero element.</p>
+
+  <h2>Contracts: how work moves and remembers</h2>
+  <div class="diagram">
+    <svg viewBox="0 0 762 220" role="img" aria-label="A thread is routed by O0 to a work lane task home, which records checkpoints a later session reads to resume">
+      <defs>
+        <marker id="ar3" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L7,3 L0,6 z" fill="#7ec8e3"/></marker>
+        <marker id="ar3p" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L7,3 L0,6 z" fill="#e07a9f"/></marker>
+      </defs>
+      <g font-family="sans-serif">
+        <rect x="16" y="24" width="166" height="72" rx="12" fill="#ffffff" stroke="#7ec8e3" stroke-width="2"/>
+        <text x="99" y="56" text-anchor="middle" font-size="13" font-weight="600" fill="#3f5161">Conversation</text>
+        <text x="99" y="74" text-anchor="middle" font-size="13" font-weight="600" fill="#3f5161">thread</text>
+
+        <rect x="210" y="24" width="166" height="72" rx="12" fill="#f7d6e3" stroke="#e07a9f" stroke-width="2"/>
+        <text x="293" y="56" text-anchor="middle" font-size="13" font-weight="600" fill="#b8567f">O0 orchestrator</text>
+        <text x="293" y="74" text-anchor="middle" font-size="11" fill="#a05c79">intake and routing</text>
+
+        <rect x="404" y="24" width="172" height="72" rx="12" fill="#ffffff" stroke="#7ec8e3" stroke-width="2"/>
+        <text x="490" y="52" text-anchor="middle" font-size="13" font-weight="600" fill="#3f5161">Work lane task home</text>
+        <text x="490" y="70" text-anchor="middle" font-size="10.5" fill="#6a8198">manifest &#183; README &#183; STEP&#95;LOG &#183; handoffs</text>
+
+        <rect x="604" y="24" width="142" height="72" rx="12" fill="#ffffff" stroke="#7ec8e3" stroke-width="2"/>
+        <text x="675" y="56" text-anchor="middle" font-size="13" font-weight="600" fill="#3f5161">Checkpoint</text>
+        <text x="675" y="74" text-anchor="middle" font-size="11" fill="#6a8198">state recorded</text>
+
+        <line x1="182" y1="60" x2="208" y2="60" stroke="#7ec8e3" stroke-width="2" marker-end="url(#ar3)"/>
+        <line x1="376" y1="60" x2="402" y2="60" stroke="#7ec8e3" stroke-width="2" marker-end="url(#ar3)"/>
+        <line x1="576" y1="60" x2="602" y2="60" stroke="#7ec8e3" stroke-width="2" marker-end="url(#ar3)"/>
+
+        <path d="M675,96 L675,180 L293,180 L293,98" fill="none" stroke="#e07a9f" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#ar3p)"/>
+        <text x="484" y="172" text-anchor="middle" font-size="12" fill="#c76f93">a later session reads recent checkpoints and resumes</text>
+      </g>
+    </svg>
+  </div>
+  <p class="cap">Every file carries a surface class, so a reader knows from the path alone whether it is an authoritative memo, a derived report, a narrative log or current state. Each lane keeps dated task homes, and a session reads the step log first, so it resumes with the lane history intact.</p>
+
+  <h2>The full catalogue</h2>
   <table>
     <tr><th>ID</th><th>Letter</th><th>Lane</th></tr>
     <tr class="o0"><td class="id">O0</td><td class="lt">zero element</td><td>Orchestration and coordinating. Intake, routing, state reconciliation, catalogue hygiene and cross-repo packaging. It does not execute lane work.</td></tr>
-    <tr><td class="id">O1</td><td class="lt">A / I</td><td>Authority / System / Excavation / Validation / Chain Execution</td></tr>
-    <tr><td class="id">O2</td><td class="lt">B / II</td><td>Research / Analysis / Experimental Lab</td></tr>
-    <tr><td class="id">O3</td><td class="lt">C / III</td><td>Control System Infra Unification</td></tr>
-    <tr><td class="id">O4</td><td class="lt">D / IV</td><td>UX / Documentation</td></tr>
-    <tr><td class="id">O5</td><td class="lt">E / V</td><td>Patenting / Authoring Strategy</td></tr>
-    <tr><td class="id">O6</td><td class="lt">F / VI</td><td>Packaging / Boundary Tracking / Presentation Slides</td></tr>
-    <tr><td class="id">O7</td><td class="lt">G / VII</td><td>Theoretical Research / Interdisciplinary Collaboration</td></tr>
-    <tr><td class="id">O8</td><td class="lt">H / VIII</td><td>Topological Modeling / Hatcher</td></tr>
-    <tr><td class="id">O9</td><td class="lt">I / IX</td><td>Integration / Frontend Testing</td></tr>
-    <tr><td class="id">O10</td><td class="lt">J / X</td><td>Production Versioning / Repo Hygiene</td></tr>
-    <tr><td class="id">O11</td><td class="lt">K / XI</td><td>Knowledge Base / ROM Interpretability</td></tr>
-    <tr><td class="id">O12</td><td class="lt">L / XII</td><td>Product Alignment</td></tr>
-    <tr><td class="id">O13</td><td class="lt">M / XIII</td><td>Product Misalignment</td></tr>
-    <tr><td class="id">O14</td><td class="lt">N / XIV</td><td>New Features R&amp;D</td></tr>
-    <tr class="retired"><td class="id">O15</td><td class="lt">O / XV</td><td>Retired as a work lane. Orchestration is the role of the zero element O0.</td></tr>
-    <tr><td class="id">O16</td><td class="lt">P / XVI</td><td>Publication / Exploratory Findings Manuscript. Presentation, funding and paper-drafting coordination.</td></tr>
+    <tr><td class="id">O1</td><td class="lt">A</td><td>Authority / System / Excavation / Validation / Chain Execution</td></tr>
+    <tr><td class="id">O2</td><td class="lt">B</td><td>Research / Analysis / Experimental Lab</td></tr>
+    <tr><td class="id">O3</td><td class="lt">C</td><td>Control System Infra Unification</td></tr>
+    <tr><td class="id">O4</td><td class="lt">D</td><td>UX / Documentation</td></tr>
+    <tr><td class="id">O5</td><td class="lt">E</td><td>Patenting / Authoring Strategy</td></tr>
+    <tr><td class="id">O6</td><td class="lt">F</td><td>Packaging / Boundary Tracking / Presentation Slides</td></tr>
+    <tr><td class="id">O7</td><td class="lt">G</td><td>Theoretical Research / Interdisciplinary Collaboration</td></tr>
+    <tr><td class="id">O8</td><td class="lt">H</td><td>Topological Modeling / Hatcher</td></tr>
+    <tr><td class="id">O9</td><td class="lt">I</td><td>Integration / Frontend Testing</td></tr>
+    <tr><td class="id">O10</td><td class="lt">J</td><td>Production Versioning / Repo Hygiene</td></tr>
+    <tr><td class="id">O11</td><td class="lt">K</td><td>Knowledge Base / ROM Interpretability</td></tr>
+    <tr><td class="id">O12</td><td class="lt">L</td><td>Product Alignment</td></tr>
+    <tr><td class="id">O13</td><td class="lt">M</td><td>Product Misalignment</td></tr>
+    <tr><td class="id">O14</td><td class="lt">N</td><td>New Features R&amp;D</td></tr>
+    <tr class="retired"><td class="id">O15</td><td class="lt">O</td><td>Retired as a work lane. Orchestration is the role of the zero element O0.</td></tr>
+    <tr><td class="id">O16</td><td class="lt">P</td><td>Publication / Exploratory Findings Manuscript. Presentation, funding and paper-drafting coordination.</td></tr>
   </table>
-
-  <h2>Contracts: surfaces and handoffs</h2>
-  <p>Every file carries a surface class so a reader knows from the path alone whether it is an authoritative memo, a derived report, a narrative log or current state. Each work lane keeps dated task homes named yyyymmdd_slug, and each home holds a manifest, a readme, a step log and written handoffs for the orchestrator, the research role and the runner. A session reads the step log first, so it resumes with the lane history intact.</p>
 
   <h2>How aimez.ai runs on it</h2>
   <p>The aimez.ai research program is the work this catalogue coordinates. Recent task homes map onto the lanes like this.</p>
