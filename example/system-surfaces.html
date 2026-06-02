@@ -22,10 +22,10 @@
 
     <table>
       <tr><th>Surface</th><th>Path</th><th>Role</th><th>Write rule</th></tr>
-      <tr><td class="id">Memos</td><td><code>.meta/memos/</code></td><td>Authoritative contracts and decisions</td><td>Authoritative; change through a new superseding memo</td></tr>
-      <tr><td class="id">Reports</td><td><code>.meta/reports/</code></td><td>Derived artifacts and analysis outputs</td><td>Writable in execution</td></tr>
-      <tr><td class="id">Logs</td><td><code>.meta/logs/</code></td><td>Day logs and lab narrative</td><td>Writable when a lane is authorized</td></tr>
-      <tr><td class="id">State</td><td><code>.sst/</code></td><td>Current system state</td><td>Read-only during proposal and intake</td></tr>
+      <tr><td class="id">Memos</td><td><code>.cca/memos/</code></td><td>Authoritative contracts and decisions</td><td>Authoritative; change through a new superseding memo</td></tr>
+      <tr><td class="id">Reports</td><td><code>.cca/reports/</code></td><td>Derived artifacts and analysis outputs</td><td>Writable in execution</td></tr>
+      <tr><td class="id">Logs</td><td><code>.cca/logs/</code></td><td>Day logs and lab narrative</td><td>Writable when a lane is authorized</td></tr>
+      <tr><td class="id">State</td><td><code>.cca/state/</code></td><td>Current system state</td><td>Read-only during proposal and intake</td></tr>
     </table>
 
     <h2>The rule that makes it work</h2>
