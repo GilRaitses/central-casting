@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Central Casting: demo source for slides</title>
+  <title>Central Casting: reference and worked example</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,17 +11,18 @@
     <a class="brand" href="index.html">Central Casting</a>
     <nav>
       <a href="walkthrough-deck.html">Walkthrough</a>
-      <a href="demo-source.html">Demo source</a>
+      <a href="event-deck.html">Event demo</a>
+      <a href="demo-source.html">Reference</a>
       <a href="aimez-program.html">In practice</a>
     </nav>
   </header>
   <main>
-    <h1>Demo source for slides</h1>
-    <p class="subtitle">The material a deck needs, in one place.</p>
+    <h1>Reference and worked example</h1>
+    <p class="subtitle">The problem, the definitions and the method shown end to end.</p>
     <p class="scope">This page carries the problem, clear definitions, a worked example, an architecture picture, concrete moves in Cursor and answers to the hard questions. It pairs with the <a href="walkthrough.html">walkthrough</a> and the sanitized files in <code>example/</code>.</p>
 
     <h2>The problem</h2>
-    <p>Long projects live in long conversation threads. Each new session re-reads the thread, re-derives decisions and slowly loses the plot, and work that spans several repositories drifts apart. The cost shows up as repeated context, lost decisions and stale state. Central Casting addresses this by giving the work a structure that holds its own memory.</p>
+    <p>A long-lived agent re-sends its whole growing context on every turn, so input tokens, which dominate the bill, climb worse than linearly as a session runs, and a session that starts cold re-reads the thread and re-derives its decisions before it does any work. The gap is measurable, the amount of context a run carries and re-bills and how much of that is avoidable. Central Casting closes it by putting durable state on disk so the chat is disposable, and on one five-week run, read from its own step log, that cut input tokens on the metered surface by an estimated 70 to 85 percent and let a slow agent be replaced in a single hydration turn.</p>
 
     <h2>Glossary</h2>
     <table>
