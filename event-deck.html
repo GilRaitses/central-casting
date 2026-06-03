@@ -86,21 +86,21 @@
     <section class="slide active">
       <p class="kicker">Event demo</p>
       <h1>Cut the cost of long agent runs</h1>
-      <p class="sub">Externalize agent state to disk so a slow or full worker respawns from a few KB, and keep planning on a separate cyclable chat.</p>
-      <p class="lead">The operating layer is Cursor. The orchestrator runs in a separate chat. This deck is the short event walk.</p>
+      <p class="sub">Externalize agent state to disk so a slow or full worker respawns from a few KB while planning stays on a separate cyclable chat.</p>
+      <p class="lead">The operating layer is Cursor and the orchestrator runs in a separate chat you can replace.</p>
     </section>
 
     <section class="slide">
       <p class="kicker">The problem</p>
       <h2>The context tax</h2>
       <p class="lead">A single long-lived agent re-sends its whole growing context every turn, so input tokens, which dominate the bill, climb worse than linearly as a session runs.</p>
-      <p class="lead">Orchestration makes it worse: planning and reconciliation are token-heavy reasoning that never touches code yet burns premium in-editor turns.</p>
+      <p class="lead">Orchestration makes it worse, because planning and reconciliation are token-heavy reasoning that never touches code yet burns premium in-editor turns.</p>
     </section>
 
     <section class="slide">
       <p class="kicker">The fix, in one line</p>
       <h2>State on disk, an orchestrator you cycle</h2>
-      <p class="lead">Put the durable state on disk so the chat is disposable, and move planning to a separate chat you can replace when it fills.</p>
+      <p class="lead">Put the durable state on disk so the chat is disposable, then move planning to a separate chat you can replace when it fills.</p>
       <div class="flow">
         <span class="node pink">state on disk</span>
         <span class="arrow">+</span>
@@ -183,7 +183,7 @@
       <h2>Roughly 70 to 85 percent fewer input tokens</h2>
       <div class="panel">
         <p class="big">70 to 85 percent fewer input tokens on the metered surface.</p>
-        <small>An estimate from one real run. The structural cause is verified: durable state on disk, bounded per-task context, and an orchestrator cycled in one hydration turn. Dollar figures are illustrative, not measured.</small>
+        <small>An estimate from one real run. The structural cause is verified, durable state on disk, bounded per-task context and an orchestrator cycled in one hydration turn. Dollar figures are illustrative, not measured.</small>
       </div>
     </section>
 
