@@ -6,6 +6,7 @@
   <title>Central Casting: the walkthrough deck</title>
   <style>
     :root {
+      color-scheme: light dark;
       --bg:#eef7fc; --card:#ffffff; --ink:#46566a; --muted:#8aa0b2;
       --blue:#7ec8e3; --blue-deep:#4a90c2; --pink:#f3b6cd; --pink-deep:#e07a9f;
       --cream:#fff4e0; --border:#cfe9f5; --code-bg:#f4fbff;
@@ -68,6 +69,18 @@
     .home-link::before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--pink); margin-right: 0.4rem; vertical-align: middle; }
     .progress { position: fixed; top: 0; left: 0; height: 4px; background: var(--pink-deep); width: 0; z-index: 11; transition: width 0.3s ease; }
     .hint { position: fixed; bottom: 1.2rem; left: 1.3rem; color: var(--muted); font-size: 0.78rem; z-index: 10; }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:#0e141b; --card:#161b24; --ink:#e6e9f0; --muted:#98a2b3;
+        --blue:#7ec8e3; --blue-deep:#8ab6e8; --pink:#f3b6cd; --pink-deep:#e58fb0;
+        --cream:#241c25; --border:#232c38; --code-bg:#11161e;
+      }
+      body { background: linear-gradient(160deg, #0e141b 0%, #1a1320 100%); }
+      th { background: #1b2632; }
+      .node.pink { background: #2a2030; }
+      .nav-btn:hover { background: #2a2030; }
+    }
   </style>
 </head>
 <body>
