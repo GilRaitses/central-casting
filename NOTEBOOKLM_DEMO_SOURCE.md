@@ -1,13 +1,13 @@
 # Central Casting: the complete demo source
 
-This is the single source to feed into NotebookLM. It consolidates every page of the Central Casting demo into one document: the method, the orchestrator, the demo catalogue, how the aimez.ai program runs on it, the event demo about cost and kill-and-respawn, and the v5 00 rules in plain terms. It is written to read on its own and to drive a slide deck. The figure blocks describe visuals a generator can render. The slide outline near the end gives a deck structure.
+This is the single source to feed into NotebookLM. It consolidates every page of the Central Casting demo into one document: the method, the orchestrator, the demo catalogue, how the aimez.ai program runs on it, the cost demo about kill-and-respawn and long-run spend, and the v5 00 rules in plain terms. It is written to read on its own and to drive a slide deck. The figure blocks describe visuals a generator can render. The slide outline near the end gives a deck structure.
 
 Live pages this source covers:
 - Demo home: https://gilraitses.github.io/central-casting/
 - Method walkthrough: https://gilraitses.github.io/central-casting/walkthrough.html
 - Reference and worked example: https://gilraitses.github.io/central-casting/reference.html
 - In practice on a real program: https://gilraitses.github.io/central-casting/aimez-program.html
-- Event demo, cost and kill-and-respawn: https://gilraitses.github.io/central-casting/event.html
+- Cost demo, kill-and-respawn and long-run spend: https://gilraitses.github.io/central-casting/event.html
 - Source: https://github.com/GilRaitses/central-casting
 
 ## One-line pitch

@@ -84,36 +84,47 @@
   <div class="deck" id="deck">
 
     <section class="slide active">
-      <p class="kicker">Event demo</p>
-      <h1>Cut the cost of long agent runs</h1>
-      <p class="sub">Externalize agent state to disk so a slow or full worker respawns from a few KB while planning stays on a separate cyclable chat.</p>
-      <p class="lead">The operating layer is Cursor and the orchestrator runs in a separate chat you can replace.</p>
+      <p class="kicker">Cost demo</p>
+      <h1>Externalize agent state into a tiered orchestration</h1>
+      <p class="sub">A central orchestrator over lane orchestrators over bounded workers, with the durable state on disk so any piece respawns from a few KB.</p>
+      <p class="lead">The operating layer is Cursor. The lower cost of a long run is what this structure buys.</p>
     </section>
 
     <section class="slide">
       <p class="kicker">The problem</p>
-      <h2>The context tax</h2>
-      <p class="lead">A single long-lived agent re-sends its whole growing context every turn, so input tokens, which dominate the bill, climb worse than linearly as a session runs.</p>
-      <p class="lead">Orchestration makes it worse, because planning and reconciliation are token-heavy reasoning that never touches code yet burns premium in-editor turns.</p>
+      <h2>One thread holds everything</h2>
+      <p class="lead">A monolithic agent keeps its plan, its state and its work in a single growing thread, so no part can be split off, replaced or audited on its own.</p>
+      <p class="lead">That thread re-sends its whole context every turn, so the input tokens that dominate the bill climb worse than linearly as the run goes on.</p>
     </section>
 
     <section class="slide">
-      <p class="kicker">The fix, in one line</p>
-      <h2>State on disk, an orchestrator you cycle</h2>
-      <p class="lead">Put the durable state on disk so the chat is disposable, then move planning to a separate chat you can replace when it fills.</p>
+      <p class="kicker">The shape</p>
+      <h2>State on disk, work split into lanes</h2>
+      <p class="lead">Put the durable state on disk so the thread becomes disposable, then split the work into lanes that a tiered orchestration routes and reconciles.</p>
       <div class="flow">
         <span class="node pink">state on disk</span>
         <span class="arrow">+</span>
-        <span class="node">bounded workers</span>
+        <span class="node">tiered orchestration</span>
         <span class="arrow">+</span>
-        <span class="node">cyclable orchestrator</span>
+        <span class="node">bounded workers</span>
       </div>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">The architecture</p>
+      <h2>Three tiers that branch</h2>
+      <p class="lead" style="margin-bottom:0.6rem;">Orchestration is tiered, so no single agent carries the whole program.</p>
+      <ol>
+        <li><b>00</b>, the central orchestrator, routes work to lanes and reconciles their state every turn.</li>
+        <li><b>01 to 05</b>, lane orchestrators, each own one work area and track its step state.</li>
+        <li><b>A1 to An</b>, worker actors, each scoped to a single task home inside a lane.</li>
+      </ol>
     </section>
 
     <section class="slide">
       <p class="kicker">State on disk</p>
       <h2>The .cc folder</h2>
-      <p class="lead" style="margin-bottom:0.6rem;">The durable truth lives in a .cc folder, one lane per work area. The chat is disposable, the folder is the source of truth.</p>
+      <p class="lead" style="margin-bottom:0.6rem;">The durable truth lives in a .cc folder with one lane per work area, so the folder is the source of truth and the chat is disposable.</p>
       <div class="tree">.cc/
   01 .. 05/                  <span class="note">a lane, the local orchestrator's home</span>
     current_step.yaml          <span class="note">lane step state</span>
@@ -124,7 +135,7 @@
     </section>
 
     <section class="slide">
-      <p class="kicker">Kill and respawn</p>
+      <p class="kicker">Replace a worker</p>
       <h2>Hydration in five moves</h2>
       <div class="flow">
         <span class="node">worker slows</span>
@@ -137,13 +148,13 @@
         <span class="arrow">&rarr;</span>
         <span class="node">hydrate and resume</span>
       </div>
-      <p class="lead" style="margin-top:1.2rem;">The fresh worker reads a few KB of state, so it carries no stale or cross-task context and pays no replay tax.</p>
+      <p class="lead" style="margin-top:1.2rem;">Because the worker's state is on disk, a fresh one reads a few KB and resumes, so it carries no stale or cross-task context and pays no replay tax.</p>
     </section>
 
     <section class="slide">
-      <p class="kicker">The orchestrator</p>
-      <h2>Cycle a slow 00 chat in one turn</h2>
-      <p class="lead">Planning, routing and reconciliation run in a separate chat called 00. It treats the .cc workspace as the source of truth and reconciles from it every turn, so the chat holds nothing irreplaceable.</p>
+      <p class="kicker">Replace the orchestrator</p>
+      <h2>Cycle a full 00 chat in one turn</h2>
+      <p class="lead">00 runs in its own chat and reconciles from the .cc workspace every turn, so it holds nothing irreplaceable and a fresh 00 picks up where it left off.</p>
       <div class="flow">
         <span class="node pink">00 chat fills</span>
         <span class="arrow">&rarr;</span>
@@ -179,7 +190,7 @@
     </section>
 
     <section class="slide">
-      <p class="kicker">The headline <span class="tag">estimate</span></p>
+      <p class="kicker">What it buys <span class="tag">estimate</span></p>
       <h2>Roughly 70 to 85 percent fewer input tokens</h2>
       <div class="panel">
         <p class="big">70 to 85 percent fewer input tokens on the metered surface.</p>
@@ -189,19 +200,19 @@
 
     <section class="slide">
       <p class="kicker">Two levers <span class="tag">estimates labeled</span></p>
-      <h2>Where the reduction comes from</h2>
+      <h2>Two levers, both structural</h2>
       <table>
         <tr><th>Lever</th><th>What changes</th><th>Estimated effect</th></tr>
         <tr><td class="lt">External orchestrator</td><td>Planning runs on a flat-fee chat, off the metered in-editor turns, cycled in one hydration turn.</td><td>token-heavy reasoning leaves the metered surface</td></tr>
         <tr><td class="lt">Bounded workers</td><td>Each worker is scoped to one task home, near 10 to 25K tokens, where one monolithic thread grows to 80 to 150K.</td><td>about 70 to 80 percent fewer input tokens per task</td></tr>
       </table>
-      <p class="sub" style="margin-top:0.9rem;">Caching lowers the absolute dollars; the structural win holds either way.</p>
+      <p class="sub" style="margin-top:0.9rem;">Caching lowers the absolute dollars and the structural win holds either way.</p>
     </section>
 
     <section class="slide">
       <p class="kicker">Read more</p>
       <h2>Go deeper</h2>
-      <p class="lead">The method, the worked program, and the reading version of this demo.</p>
+      <p class="lead">The method, the worked program and the reading version of this demo.</p>
       <div class="links">
         <a href="walkthrough-deck.html">The method deck</a>
         <a href="aimez-program.html">Central Casting in practice</a>
@@ -214,7 +225,7 @@
 
   <div class="hud">
     <button class="nav-btn" id="prev" aria-label="Previous slide">&larr;</button>
-    <span class="count" id="count">1 / 11</span>
+    <span class="count" id="count">1 / 12</span>
     <button class="nav-btn" id="next" aria-label="Next slide">&rarr;</button>
   </div>
   <p class="hint">Arrow keys or space to move</p>
