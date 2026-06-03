@@ -1,5 +1,6 @@
 /* Central Casting shared style (Cinnamoroll palette) */
 :root {
+  color-scheme: light dark;
   --bg:#eef7fc; --card:#ffffff; --ink:#46566a; --muted:#8aa0b2;
   --blue:#7ec8e3; --blue-deep:#4a90c2; --pink:#f3b6cd; --pink-deep:#e07a9f;
   --cream:#fff4e0; --border:#cfe9f5; --code-bg:#f4fbff;
@@ -70,3 +71,18 @@ ul.plain li { margin-bottom: 0.35rem; }
 
 .foot { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.88rem; }
 .foot a { color: var(--blue-deep); }
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:#0e141b; --card:#161b24; --ink:#e6e9f0; --muted:#98a2b3;
+    --blue:#7ec8e3; --blue-deep:#8ab6e8; --pink:#f3b6cd; --pink-deep:#e58fb0;
+    --cream:#241c25; --border:#232c38; --code-bg:#11161e;
+  }
+  h3 { color: #cfd8e3; }
+  th { background: #1b2632; color: var(--blue-deep); }
+  code { color: #9fcbe0; }
+  .timeline .tag { background: #2a2030; color: var(--pink-deep); }
+  .o0 td { background: #2a2030; }
+  .diagram svg rect { fill: #1f2733; }
+  .diagram svg text { fill: #dbe2ec; }
+}
