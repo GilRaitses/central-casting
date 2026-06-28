@@ -33,6 +33,9 @@
       <tr><td class="id">Work home</td><td>One task folder inside a lane, named yyyymmdd_slug, carrying a manifest, a readme, a step log and handoff notes.</td></tr>
       <tr><td class="id">Checkpoint</td><td>The unit of memory: a recorded state change in what a lane knows, can do, is blocked by or is allowed to write.</td></tr>
       <tr><td class="id">Handoff</td><td>A written transfer of ownership or next-action authority between lanes or sessions.</td></tr>
+      <tr><td class="id">Waveset</td><td>A whole campaign that 00 charters and dispatches to a fresh orchestrator to run as waves of parallel subagents, while 00 stays free.</td></tr>
+      <tr><td class="id">Dispatched orchestrator</td><td>A background subagent or a separate thread that receives a waveset, runs its waves and reports results back to 00. It answers to the orchestrator that sent it.</td></tr>
+      <tr><td class="id">Wave</td><td>One round of parallel subagents inside a waveset, where a subagent is an actor and each one owns one bounded task and one disjoint set of files. A wave repeats when a check fails.</td></tr>
     </table>
 
     <h2>Worked example</h2>

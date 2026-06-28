@@ -26,6 +26,7 @@
       <li><strong>Routing:</strong> send a bounded task to the right lane.</li>
       <li><strong>State reconciliation:</strong> check current state before interpreting any return.</li>
       <li><strong>Memo generation:</strong> write the contract that a lane executes against.</li>
+      <li><strong>Dispatch:</strong> charter a waveset and hand it to a fresh orchestrator that runs waves of parallel subagents and reports back, while 00 stays free for other work.</li>
     </ul>
 
     <h2>What 00 does not do</h2>
@@ -34,6 +35,9 @@
       <li>It does not mutate repositories or documents directly.</li>
       <li>It does not stand in for a lane's own validation.</li>
     </ul>
+
+    <h2>Dispatching a waveset</h2>
+    <p>A waveset is a whole campaign rather than one task. 00 writes the charter, then dispatches it to a fresh orchestrator, a background subagent or a separate thread. The dispatched orchestrator runs the campaign as waves of parallel subagents, where a subagent is an actor and each one owns one bounded task and one disjoint set of files. It reports each wave back to 00. The dispatched orchestrator answers to 00, not to the operator, so escalation stays inside the method. This layer is recent and still maturing. It extends the orchestrator rather than replacing it.</p>
 
     <h2>Why a zero element</h2>
     <p>Keeping orchestration separate from execution is what lets the lanes stay focused and the state stay trustworthy. 00 holds the map, and the lanes do the work.</p>

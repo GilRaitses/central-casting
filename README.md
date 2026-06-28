@@ -6,9 +6,9 @@ task home folders and schemas. The operating layer is Cursor.
 
 ## What is here
 
-- `WALKTHROUGH.md` is the method, written as eight steps. It reads on its own and works as the source for a short demo deck.
+- `WALKTHROUGH.md` is the method, written as nine steps. It reads on its own and works as the source for a short demo deck.
 - `example/` is a sanitized schema set the walkthrough points at. It carries no private project content.
-  - `00_orchestrator.md` defines the zero element that routes work and reconciles state.
+  - `00_orchestrator.md` defines the zero element that routes work, reconciles state and dispatches wavesets.
   - `actor_catalogue.yaml` lists the example work lanes.
   - `system_surfaces.md` defines the file surface classes.
   - `work_home_schema.yaml` defines the task home folder.
@@ -21,10 +21,12 @@ task home folders and schemas. The operating layer is Cursor.
 ## How to use it
 
 Read `WALKTHROUGH.md`, then open the matching file in `example/` at each step.
-The live page presents the same eight steps in order.
+The live page presents the same nine steps in order.
 
 ## Honest scope
 
 The method is recent and still maturing. It reduces context loss across long,
 multi-session work, and it depends on care. This repository is a teaching demo,
-not a framework to install.
+not a framework to install. The waveset layer that dispatches parallel waves of
+subagents is the newest part and the least settled. It extends the existing
+method rather than replacing it.

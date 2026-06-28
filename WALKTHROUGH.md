@@ -77,6 +77,23 @@ When work moves between lanes or sessions, the handoff is written down in the
 task home. Because the contract is explicit, one agent takes over from another
 with the context intact.
 
+## Step 9: Dispatch a waveset
+
+A handoff moves one piece of work to one new owner. A waveset moves a whole
+campaign. The orchestrator stays the zero element that holds the map, so it does
+not run the work itself. It writes a charter for the whole campaign. That charter
+is the waveset. It dispatches the waveset to a fresh orchestrator, a background
+subagent or a separate thread. The dispatched orchestrator runs the campaign as
+waves of parallel subagents. A subagent is an actor, the same kind of worker a
+lane already spawns. Each subagent owns one bounded task and one disjoint set of
+files. The dispatched orchestrator reports each wave back to the orchestrator.
+Waves repeat when a check fails. The dispatched orchestrator answers to the
+orchestrator that sent it, not to the operator, so escalation stays inside the
+method. The orchestrator stays free for other work while the waves run. Disjoint
+file ownership inside a wave keeps the parallel subagents off each other's files.
+The waveset layer is recent and still maturing. It extends the existing method
+rather than replacing it. See `example/00_orchestrator.md`.
+
 ## What this buys you
 
 A session that starts weeks later opens the relevant task home, reads the recent
@@ -93,9 +110,15 @@ becomes a system that holds its own memory.
 - Work home: one task folder inside a lane, named yyyymmdd_slug, with a manifest, a readme, a step log and handoff notes.
 - Checkpoint: the unit of memory, a recorded state change in what a lane knows, can do, is blocked by or is allowed to write.
 - Handoff: a written transfer of ownership or next-action authority between lanes or sessions.
+- Waveset: a whole campaign that the orchestrator charters and dispatches to a fresh orchestrator to run as waves of parallel subagents. The orchestrator stays free while the waves run.
+- Dispatched orchestrator: a background subagent or a separate thread that receives a waveset, runs its waves and reports results back to the orchestrator. It answers to the orchestrator that dispatched it.
+- Wave: one round of parallel subagents inside a waveset. Each subagent owns one bounded task and one disjoint set of files. A wave repeats when a check fails.
+- Subagent: an actor run as one member of a wave. It is the same worker a lane spawns, named by the lane letter and an instance number.
 
 ## Honest scope
 
 This method is recent and still maturing. The checkpoint discipline reduces
 context loss; it depends on care, and a change in one lane reaches another only
 when it is carried there on purpose. Naming the limit is part of the practice.
+The waveset layer that dispatches parallel waves of subagents is the newest part
+and the least settled. It extends the existing method rather than replacing it.

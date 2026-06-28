@@ -25,6 +25,9 @@ disk that holds its own memory.
 | Work home | One task folder inside a lane, named yyyymmdd_slug, carrying a manifest, a readme, a step log, and handoff notes. |
 | Checkpoint | The unit of memory: a recorded state change in what a lane knows, can do, is blocked by, or is allowed to write. |
 | Handoff | A written transfer of ownership or next-action authority between lanes or sessions. |
+| Waveset | A whole campaign that 00 charters and dispatches to a fresh orchestrator to run as waves of parallel subagents, while 00 stays free. |
+| Dispatched orchestrator | A background subagent or a separate thread that receives a waveset, runs its waves and reports results back to 00. It answers to the orchestrator that sent it. |
+| Wave | One round of parallel subagents inside a waveset, where a subagent is an actor and each one owns one bounded task and one disjoint set of files. A wave repeats when a check fails. |
 
 ## Worked example
 

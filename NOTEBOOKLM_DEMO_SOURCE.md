@@ -26,7 +26,7 @@ Central Casting is a method for keeping long, multi-repository agent work cohere
 
 A long-lived agent re-sends its whole growing context on every turn, so input tokens climb worse than linearly, and a cold session re-reads the thread and re-derives its decisions before it does any work. The gap is measurable, the context a run carries and re-bills, and across several repositories the work also drifts apart. The method closes the gap by giving the work a structure on disk that holds its own memory, so a session weeks later resumes from recorded state.
 
-## The method, in eight steps
+## The method, in nine steps
 
 1. Start from the open thread. Name the project and its scope in one sentence, so everything after has a fixed center.
 2. Name the work lanes. List the distinct kinds of work. Each becomes a lane, a team with a lead actor that spawns supporting actors as the work compounds. A zero element called 00 orchestrates above them.
@@ -36,6 +36,7 @@ A long-lived agent re-sends its whole growing context on every turn, so input to
 6. Record checkpoints as memory. The unit of memory is a checkpoint, a recorded state change in what a lane knows, can do, is blocked by or is allowed to write.
 7. Keep a local and cloud boundary. The memory and audit layer stays local. Production work such as formatting and cross-repository assembly can be delegated to cloud agents.
 8. Hand off in writing. When work moves between lanes or sessions, the handoff is written down in the task home, so the next agent has the context intact.
+9. Dispatch a waveset. 00 charters a whole campaign and dispatches it to a fresh orchestrator, a background subagent or a separate thread, that runs the campaign as waves of parallel subagents and reports back while 00 stays free for other work. A subagent is an actor and each one owns one bounded task and one disjoint set of files. The dispatched orchestrator answers to 00, not to the operator. This layer is recent and still maturing. It extends the existing method rather than replacing it.
 
 ## System surfaces
 
@@ -51,7 +52,7 @@ Each file resolves to exactly one surface class, so a reader knows from the path
 
 00 is the zero element of the lane system and the central orchestrator. It is a control surface, not an execution surface.
 
-What 00 does: intake and classification, routing a bounded task to the right lane, state reconciliation before interpreting any return, and memo generation that writes the contract a lane executes against.
+What 00 does: intake and classification, routing a bounded task to the right lane, state reconciliation before interpreting any return, and memo generation that writes the contract a lane executes against. It also dispatches a waveset, a whole campaign it charters and hands to a fresh orchestrator that runs waves of parallel subagents and reports back while 00 stays free for other work.
 
 What 00 does not do: it does not execute lane work, it does not mutate repositories or documents, and it does not stand in for a lane's own validation.
 
@@ -225,6 +226,9 @@ Figure 5. A two-bar chart. Bar one, "single long agent," tall. Bar two, "Central
 - Checkpoint: a recorded state change, the unit of memory.
 - Hydration: rebuilding a fresh agent from the state on disk.
 - Cycling: replacing a slow or full chat with a fresh one that reconciles from the workspace.
+- Waveset: a whole campaign that 00 charters and dispatches to a fresh orchestrator to run as waves of parallel subagents, while 00 stays free.
+- Dispatched orchestrator: a background subagent or a separate thread that receives a waveset, runs its waves and reports results back to 00. It answers to the orchestrator that sent it.
+- Wave: one round of parallel subagents inside a waveset, where a subagent is an actor and each one owns one bounded task and one disjoint set of files. A wave repeats when a check fails.
 
 ## Honest scope
 

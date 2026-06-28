@@ -19,5 +19,11 @@ from there.
 ## 2026-05-30 authority_change
 - 00 fixed the threshold in a superseding memo. The manifest now points to it.
 
+## 2026-05-30 dispatch
+- 00 chartered a small waveset to rerun the comparison across both methods at once. It handed the charter to a fresh orchestrator and stayed free for other work.
+
+## 2026-05-30 handoff
+- The dispatched orchestrator ran one wave of parallel subagents and reported a verified summary back to 00. Each subagent owned one method and one output file.
+
 ## 2026-05-30 commit_push
 - The analysis script and output table landed and were published.

@@ -104,7 +104,7 @@
 
     <section class="slide">
       <p class="kicker">The shape</p>
-      <h2>Eight steps</h2>
+      <h2>Nine steps</h2>
       <ol>
         <li><b>Start from the open thread.</b> Name the project and its scope in one sentence.</li>
         <li><b>Name the work lanes.</b> Each kind of work becomes a lane, with 00 above them.</li>
@@ -114,6 +114,7 @@
         <li><b>Record checkpoints as memory.</b> A recorded state change is the unit of memory.</li>
         <li><b>Keep a local and cloud boundary.</b> Memory stays local, heavy work goes to cloud agents.</li>
         <li><b>Hand off in writing.</b> Work moves between lanes with a written contract.</li>
+        <li><b>Dispatch a waveset.</b> 00 charters a campaign and dispatches it to a fresh orchestrator that runs waves of parallel subagents.</li>
       </ol>
     </section>
 
@@ -136,6 +137,21 @@
         <span class="node">A1, A2 actors</span>
         <span class="arrow">&rarr;</span>
         <span class="node pink">step state up to 00</span>
+      </div>
+    </section>
+
+    <section class="slide">
+      <p class="kicker">Concept &middot; waveset dispatch</p>
+      <h2>00 dispatches a campaign and stays free</h2>
+      <p class="def" style="margin-bottom:1.2rem;"><strong>Waveset.</strong> 00 charters a whole campaign and dispatches it to a fresh orchestrator, a background subagent or a separate thread, that runs the campaign as waves of parallel subagents and reports back. A subagent is an actor. It answers to 00, not the operator, so escalation stays inside the method. This layer is recent and still maturing. It extends the existing method rather than replacing it.</p>
+      <div class="flow">
+        <span class="node pink">00 charters</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">dispatched orchestrator</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node">waves of subagents</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node pink">report back to 00</span>
       </div>
     </section>
 
@@ -230,7 +246,7 @@
 
   <div class="hud">
     <button class="nav-btn" id="prev" aria-label="Previous slide">&larr;</button>
-    <span class="count" id="count">1 / 14</span>
+    <span class="count" id="count">1 / 15</span>
     <button class="nav-btn" id="next" aria-label="Next slide">&rarr;</button>
   </div>
   <p class="hint">Arrow keys or space to move</p>

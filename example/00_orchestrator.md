@@ -8,6 +8,17 @@ control surface, not an execution surface.
 - Routing: send a bounded task to the right lane.
 - State reconciliation: check current state before interpreting any return.
 - Memo generation: write the contract that a lane executes against.
+- Dispatch: charter a waveset and hand it to a fresh orchestrator that runs waves of parallel subagents and reports back, while 00 stays free for other work.
+
+## Dispatching a waveset
+A waveset is a whole campaign rather than one task. 00 writes the charter, then
+dispatches it to a fresh orchestrator, a background subagent or a separate
+thread. That dispatched orchestrator runs the campaign as waves of parallel
+subagents, where a subagent is an actor and each one owns one bounded task and
+one disjoint set of files. It reports each wave back to 00. The dispatched
+orchestrator answers to 00, not to the operator, so escalation stays inside the
+method. This layer is recent and still maturing. It extends the orchestrator
+rather than replacing it.
 
 ## What 00 does not do
 - It does not execute lane work.
