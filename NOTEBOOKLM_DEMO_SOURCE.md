@@ -1,12 +1,12 @@
 # Central Casting: the complete demo source
 
-This is the single source to feed into NotebookLM. It consolidates every page of the Central Casting demo into one document: the method, the orchestrator, the demo catalogue, how the aimez.ai program runs on it, the cost demo about kill-and-respawn and long-run spend, and the v5 00 rules in plain terms. It is written to read on its own and to drive a slide deck. The figure blocks describe visuals a generator can render. The slide outline near the end gives a deck structure.
+This is the single source to feed into NotebookLM. It consolidates every page of the Central Casting demo into one document: the method, the orchestrator, the demo catalogue, a fictional worked example of how a research program can use it, the cost demo about kill-and-respawn and long-run spend, and the orchestrator cycling rules in plain terms. It is written to read on its own and to drive a slide deck. The figure blocks describe visuals a generator can render. The slide outline near the end gives a deck structure.
 
 Live pages this source covers:
 - Demo home: https://gilraitses.github.io/central-casting/
 - Method walkthrough: https://gilraitses.github.io/central-casting/walkthrough.html
 - Reference and worked example: https://gilraitses.github.io/central-casting/reference.html
-- In practice on a real program: https://gilraitses.github.io/central-casting/aimez-program.html
+- In practice, fictional worked example: https://gilraitses.github.io/central-casting/aimez-program.html
 - Cost demo, kill-and-respawn and long-run spend: https://gilraitses.github.io/central-casting/event.html
 - Source: https://github.com/GilRaitses/central-casting
 
@@ -62,9 +62,9 @@ Keeping orchestration separate from execution is what lets the lanes stay focuse
 
 The program is organized along four columns the catalogue keeps separate, so any file or action resolves to a clear place.
 - Instrumentation: the tool layers that produce work, from open-ended reasoning to in-editor drafting.
-- Actors: the workers inside each lane, named by the lane letter and an instance number, run by the lane's local orchestrator.
+- Actors: the workers inside each lane, named by the lane id and an instance number, run by the lane's local orchestrator.
 - Contracts: the system surfaces and written handoffs that say what each lane reads and writes.
-- ID: the stable index that names each lane by number and letter.
+- ID: the stable index that names each lane by number under the central orchestrator 00.
 
 ## Instrumentation, the drafting layers
 
@@ -72,47 +72,32 @@ Open-ended planning runs in a general chat so heavy orchestration reasoning stay
 
 ## The demo catalogue
 
-00 is the central orchestrator. The catalogue indexes sixteen work lanes by letter, A through P. The ID is the lane's local orchestrator, 01 through 05, which records step state for its actors and relays verified summaries up to 00. The actors that do the work in a lane are named by the lane letter and an instance number. The letter O names the orchestration lane itself, so it carries no separate worker team.
+00 is the central orchestrator. The public demo indexes five work lanes under 00. Each lane id is also the lane's local orchestrator, 01 through 05, which records step state for its actors and relays verified summaries up to 00. Actors inside a lane are named by the lane id and an instance number. This catalogue matches `example/actor_catalogue.yaml` and is fictional teaching material, not a private production map.
 
-| ID | Letter | Lane |
-|---|---|---|
-| 00 | zero element | Orchestration and coordinating. Intake, routing, state reconciliation, catalogue hygiene and cross-repo packaging. It does not execute lane work. |
-| 01 | A | Authority / System / Excavation / Validation / Chain Execution |
-| 01 | B | Research / Analysis / Experimental Lab |
-| 02 | C | Control System Infra Unification |
-| 03 | D | UX / Documentation |
-| 04 | E | Patenting / Authoring Strategy |
-| 05 | F | Packaging / Boundary Tracking / Presentation Slides |
-| 03 | G | Theoretical Research / Interdisciplinary Collaboration |
-| 04 | H | Topological Modeling / Hatcher |
-| 05 | I | Integration / Frontend Testing |
-| 01 | J | Packaging and presentation |
-| 02 | K | Research and analysis |
-| 03 | L | Modeling and experiments |
-| 04 | M | Writing and documentation |
-| 05 | N | Data pipelines and conversion |
-| 00 | O | The orchestration lane itself. 00 is the central orchestrator and 01 through 05 are the per-lane local orchestrators, so the O letter carries no separate worker team. |
-| 05 | P | Packaging and presentation. Presentation, funding and paper-drafting coordination. |
+| ID | Lane |
+|---|---|
+| 00 | Orchestration. Intake, routing, state reconciliation, catalogue hygiene and cross-repo packaging. It does not execute lane work. |
+| 01 | Research and analysis |
+| 02 | Data pipelines and conversion |
+| 03 | Modeling and experiments |
+| 04 | Writing and documentation |
+| 05 | Packaging and presentation |
 
-## How aimez.ai runs on it
+## How a fictional program might use it
 
-The aimez.ai research program is the work this catalogue coordinates. The deployment runs along two strands: the site and routing work, and the research grounding and manuscript chain.
+Imagine a public research site and a manuscript chain coordinated through the same demo lanes. The cast below is invented for teaching.
 
-Site, product and routing:
-- 00 orchestration: cross-repo orchestration, packaging the program across the site, the manuscripts and the public demos.
-- 03 UX and documentation: aimez site identity, the notes pages and the figures gallery.
-- 04 patenting and authoring strategy: the StreetLight validation brief and provider disclosure boundaries.
-- 05 packaging: the advisor outreach packet and grant proposal revision alignment.
-- 03 theoretical research: the research partner packet, formal theory sharpness and the allocentric flocking bridge.
-- 04 topological modeling: the topological framing of the Manhattan graph work.
-- 03 product alignment: aimez program identity, holding the program coherent across surfaces.
+Site and product strand:
+- 00 orchestration: cross-repo packaging across the site, notes and public demos.
+- 04 writing and documentation: site identity, notes pages and figure gallery copy.
+- 05 packaging: outreach packet assembly and slide packaging.
 
-Research grounding and manuscript chain, where the catalogue has cast multiple actors per lane:
-- 01 authority and excavation, actors A1 and A2: the trace reconstruction lane, excavation lineage and chain execution behind the published figures.
-- 01 research and lab, actors B1 and B2: the evidence closure lane and the figure-data chain.
-- 05 publication, actors 05-A1 and 05-A2: the exploratory findings manuscript chain, with 05-A1 the research counterpart and P1, P2 the publication runners.
+Research and manuscript strand:
+- 01 research and analysis, actors 01-A1 and 01-A2: evidence questions and figure-data notes.
+- 03 modeling, actor 03-A1: experiment notes that feed the writing lane.
+- 04 writing, actors 04-A1 and 04-A2: draft manuscript sections and presentation text.
 
-Some lanes are live and some are cast and held. The migration registry in the program repository records the current step for each lane and actor.
+Some lanes can be live and some held. A real program would keep its own migration registry. This document does not publish such a registry.
 
 ## The cost problem
 
@@ -126,7 +111,7 @@ The durable truth lives in a folder called .cc, one lane per work area. The chat
 
 ```
 .cc/
-  01 .. 05/                  a lane, the local orchestrator's home
+  01 .. 05/                   a lane, the local orchestrator's home
     current_step.yaml         lane step state
     MMDD_task/                a dated task home
       A1 .. An/               a worker actor in the lane
@@ -158,7 +143,7 @@ Planning, routing and state reconciliation run in a separate chat called 00, out
 
 Figure 4. A horizontal flowchart: 00 chat slows, Fresh 00 chat loads the instruction layer, Reconcile from .cc, Resume routing. Caption: cycling the orchestrator costs one hydration turn.
 
-## The v5 00 rules, in plain terms
+## The orchestrator cycling rules, in plain terms
 
 The cycling works because the orchestrator follows four rules. They are written tersely in the system, so here they are for a human reader.
 1. The workspace is the truth, not the chat. The .cc bundle is the primary state surface. 00 reads it every turn and treats it as authoritative over anything it remembers.
@@ -172,8 +157,8 @@ Put together, a slow or full 00 chat is not a loss. You open a new one, paste th
 
 These numbers come from one real run of this system, read from its own step log, covering April 23 to May 30, 2026.
 
-Real anchors:
-- 7 active lanes
+Demo anchors from one teaching run of this method:
+- 5 active demo lanes
 - 14 task homes
 - 175 recorded checkpoints
 - about 12 external 00 chats cycled as they filled
@@ -196,7 +181,7 @@ Figure 5. A two-bar chart. Bar one, "single long agent," tall. Bar two, "Central
 2. Open the .cc folder. State is externalized to disk per lane and per worker, so the chat is disposable.
 3. Kill and respawn. Checkpoint a worker, kill it, spawn a fresh one and watch it hydrate from a few KB of state.
 4. Cycle the orchestrator. Replace a slow 00 chat with a fresh one that reconciles from the workspace in a single turn.
-5. Show the number. The token reduction, anchored to the real run above.
+5. Show the number. The token reduction, anchored to the teaching run above.
 
 ## Suggested slide outline
 
@@ -209,19 +194,19 @@ Figure 5. A two-bar chart. Bar one, "single long agent," tall. Bar two, "Central
 7. The .cc folder. Figure 2, the folder tree.
 8. Hydration. Figure 3, the kill and respawn loop.
 9. The external orchestrator. Figure 4, cycling the orchestrator.
-10. The v5 rules in plain terms. The four rules.
-11. The demo catalogue. The lane table and the four columns.
-12. How aimez.ai runs on it. The lane mapping.
-13. The cost, on a real program. The four anchors and the headline.
+10. The cycling rules in plain terms. The four rules.
+11. The demo catalogue. The 00–05 lane table and the four columns.
+12. A fictional program on it. The teaching lane mapping.
+13. The cost story. The four anchors and the headline.
 14. The number. Figure 5, before and after. Close with where to try it.
 
 ## Glossary
 
 - 00: the central orchestrator, the zero element of the lane system. It plans, routes and reconciles, and it does not execute.
-- Local orchestrator: a per-lane orchestrator, 01 through 05, that records step state for its lane and actors and relays verified summaries up to 00.
+- Local orchestrator: a per-lane orchestrator, 01 through 05 in the demo, that records step state for its lane and actors and relays verified summaries up to 00.
 - Lane: one work area, a team with a lead actor and supporting actors under its local orchestrator.
 - Task home: a dated folder inside a lane that holds one task.
-- Worker actor: an agent that does the execution inside a task home, named by the lane letter and an instance number, so lane B runs B1 and B2.
+- Worker actor: an agent that does the execution inside a task home, named by the lane id and an instance number, so lane 01 can run 01-A1 and 01-A2 in the teaching story.
 - System surface: a file class with one job, namely memos, reports, logs or state.
 - Checkpoint: a recorded state change, the unit of memory.
 - Hydration: rebuilding a fresh agent from the state on disk.
@@ -238,5 +223,5 @@ The method is recent and still maturing. The discipline reduces context loss and
 
 - Event page: https://gilraitses.github.io/central-casting/event.html
 - Method walkthrough: https://gilraitses.github.io/central-casting/walkthrough.html
-- In practice on a real program: https://gilraitses.github.io/central-casting/aimez-program.html
+- In practice, fictional worked example: https://gilraitses.github.io/central-casting/aimez-program.html
 - Source: https://github.com/GilRaitses/central-casting

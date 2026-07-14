@@ -43,7 +43,7 @@
     <h2>The .cc folder: state on disk</h2>
     <p>The durable truth lives in a <code>.cc</code> folder, one lane per work area. The chat is disposable, the folder is the source of truth.</p>
     <div class="tree">.cc/
-  <span class="c">01 .. 05/</span>                  <span class="note">a lane, the local orchestrator's home</span>
+  <span class="c">01 .. 05/</span>                   <span class="note">a lane, the local orchestrator's home</span>
     current_step.yaml          <span class="note">lane step state</span>
     <span class="c">MMDD_task/</span>               <span class="note">a dated task home</span>
       <span class="c">A1 .. An/</span>             <span class="note">a worker actor in the lane</span>
@@ -101,7 +101,7 @@
 
           <rect x="206" y="36" width="160" height="56" rx="12" fill="#ffffff" stroke="#7ec8e3" stroke-width="2"/>
           <text x="286" y="60" text-anchor="middle" font-size="12.5" font-weight="600" fill="#3f5161">Fresh 00 chat</text>
-          <text x="286" y="77" text-anchor="middle" font-size="10.5" fill="#6a8198">load v5 instruction layer</text>
+          <text x="286" y="77" text-anchor="middle" font-size="10.5" fill="#6a8198">load instruction layer</text>
 
           <rect x="406" y="36" width="180" height="56" rx="12" fill="#eaf6fc" stroke="#7ec8e3" stroke-width="2"/>
           <text x="496" y="60" text-anchor="middle" font-size="12.5" font-weight="600" fill="#3f5161">Reconcile from .cc</text>
@@ -117,7 +117,7 @@
       </svg>
     </div>
 
-    <h2>What the v5 00 rules mean, in plain terms</h2>
+    <h2>What the orchestrator cycling rules mean, in plain terms</h2>
     <p>The cycling works because of four rules the orchestrator follows. They are written tersely in the system, so here they are for a human reader.</p>
     <ol class="rn">
       <li><strong>The workspace is the truth, not the chat.</strong> The <code>.cc</code> bundle is the primary state surface. 00 reads it every turn and treats it as authoritative over anything it remembers.</li>
@@ -127,10 +127,10 @@
     </ol>
     <p>Put together, a slow or full 00 chat is not a loss. You open a new one, paste the instruction layer, point it at the workspace and it picks up exactly where the last one was.</p>
 
-    <h2>What it costs, on a real program</h2>
-    <p>These numbers come from one real five-week run of this system, read from its own step log.</p>
+    <h2>What it costs, on a teaching run</h2>
+    <p>These numbers come from one five-week teaching run of this method, read from its own step log.</p>
     <div class="stat-row">
-      <div class="stat"><b>7</b><span>active lanes</span></div>
+      <div class="stat"><b>5</b><span>active demo lanes</span></div>
       <div class="stat"><b>14</b><span>task homes</span></div>
       <div class="stat"><b>175</b><span>checkpoints</span></div>
       <div class="stat"><b>~12</b><span>00 chats cycled</span></div>
@@ -152,10 +152,10 @@
       <div class="step"><span class="num">2</span><h3>Open the .cc folder</h3><p>State is externalized to disk per lane and per worker, so the chat is disposable.</p></div>
       <div class="step"><span class="num">3</span><h3>Kill and respawn</h3><p>Checkpoint a worker, kill it, spawn a fresh one and watch it hydrate from a few KB of state.</p></div>
       <div class="step"><span class="num">4</span><h3>Cycle the orchestrator</h3><p>Replace a slow 00 chat with a fresh one that reconciles from the workspace in a single turn.</p></div>
-      <div class="step"><span class="num">5</span><h3>Show the number</h3><p>The token reduction, anchored to the real five-week run above.</p></div>
+      <div class="step"><span class="num">5</span><h3>Show the number</h3><p>The token reduction, anchored to the teaching run above.</p></div>
     </div>
 
-    <p class="foot">Cost deck: <a href="event-deck.html">the slide deck</a> &middot; Method deck: <a href="walkthrough-deck.html">the walkthrough</a> &middot; In practice: <a href="aimez-program.html">the aimez.ai program</a> &middot; Source: <a href="https://github.com/GilRaitses/central-casting">GitHub</a></p>
+    <p class="foot">Cost deck: <a href="event-deck.html">the slide deck</a> &middot; Method deck: <a href="walkthrough-deck.html">the walkthrough</a> &middot; In practice: <a href="aimez-program.html">the fictional worked example</a> &middot; Source: <a href="https://github.com/GilRaitses/central-casting">GitHub</a></p>
   </main>
 </body>
 </html>

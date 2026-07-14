@@ -134,7 +134,7 @@
       <p class="lead" style="margin-bottom:0.6rem;">Orchestration is tiered, so no single agent carries the whole program.</p>
       <ol>
         <li><b>00</b>, the central orchestrator, routes work to lanes and reconciles their state every turn.</li>
-        <li><b>01 to 05</b>, lane orchestrators, each own one work area and track its step state.</li>
+        <li><b>01 to 05</b>, demo lane orchestrators, each own one work area and track its step state.</li>
         <li><b>A1 to An</b>, worker actors, each scoped to a single task home inside a lane.</li>
       </ol>
     </section>
@@ -144,7 +144,7 @@
       <h2>The .cc folder</h2>
       <p class="lead" style="margin-bottom:0.6rem;">The durable truth lives in a .cc folder with one lane per work area, so the folder is the source of truth and the chat is disposable.</p>
       <div class="tree">.cc/
-  01 .. 05/                  <span class="note">a lane, the local orchestrator's home</span>
+  01 .. 05/                   <span class="note">a lane, the local orchestrator's home</span>
     current_step.yaml          <span class="note">lane step state</span>
     MMDD_task/                 <span class="note">a dated task home</span>
       A1 .. An/                <span class="note">a worker actor in the lane</span>
@@ -186,7 +186,7 @@
 
     <section class="slide">
       <p class="kicker">Why cycling is safe</p>
-      <h2>The four 00 rules</h2>
+      <h2>The four orchestrator rules</h2>
       <ol>
         <li><b>The workspace is the truth, not the chat.</b> 00 reads the .cc bundle every turn and treats it as authoritative.</li>
         <li><b>Reconcile before acting.</b> It compares each input against the latest workspace state and stops on a conflict.</li>
@@ -196,10 +196,10 @@
     </section>
 
     <section class="slide">
-      <p class="kicker">On a real program <span class="tag">verified</span></p>
+      <p class="kicker">On a teaching run <span class="tag">demo</span></p>
       <h2>One five-week run, read from its own step log</h2>
       <div class="stat-row">
-        <div class="stat"><b>7</b><span>active lanes</span></div>
+        <div class="stat"><b>5</b><span>active demo lanes</span></div>
         <div class="stat"><b>14</b><span>task homes</span></div>
         <div class="stat"><b>175</b><span>checkpoints</span></div>
         <div class="stat"><b>~12</b><span>00 chats cycled <em>(est)</em></span></div>

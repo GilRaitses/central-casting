@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Central Casting in practice: the aimez.ai research program</title>
+  <title>Central Casting in practice: a fictional worked example</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,16 +17,16 @@
   </header>
 <main>
   <h1>Central Casting in practice</h1>
-  <p class="subtitle">How the aimez.ai research program runs on the method.</p>
-  <p class="scope">This page shows the demo catalogue and tooling behind the aimez.ai research program, as a worked counterpart to the sanitized demo. The operating layer is Cursor.</p>
+  <p class="subtitle">A fictional worked example of how a research program can run on the method.</p>
+  <p class="scope">This page uses the same demo catalogue as <code>example/actor_catalogue.yaml</code> (00 plus lanes 01 through 05 under a <code>.cc</code> root). It is teaching material, not a map of any private production catalogue. The operating layer shown is Cursor.</p>
 
   <h2>The four columns</h2>
   <p>The program is organized along four columns that the catalogue keeps separate, so any file or action resolves to a clear place.</p>
   <div class="cols">
     <div class="col"><h4>Instrumentation</h4><p>The tool layers that produce work, from open-ended reasoning to in-editor drafting.</p></div>
-    <div class="col"><h4>Actors</h4><p>The workers inside each lane, named by the lane letter and an instance number, run by the lane's local orchestrator.</p></div>
+    <div class="col"><h4>Actors</h4><p>The workers inside each lane, named by the lane id and an instance number, run by the lane's local orchestrator.</p></div>
     <div class="col"><h4>Contracts</h4><p>The system surfaces and written handoffs that say what each lane reads and writes.</p></div>
-    <div class="col"><h4>ID</h4><p>The stable index that pairs each lane's local orchestrator, 01 through 05, with its team letter, A through P.</p></div>
+    <div class="col"><h4>ID</h4><p>The stable index that names each lane by number under the central orchestrator 00.</p></div>
   </div>
 
   <h2>Instrumentation: the drafting layers</h2>
@@ -64,7 +64,7 @@
 
   <h2>Actors: orchestration and the work lanes</h2>
   <div class="diagram">
-    <svg viewBox="0 0 762 288" role="img" aria-label="The 00 orchestrator routes work to four clusters of lanes">
+    <svg viewBox="0 0 762 288" role="img" aria-label="The 00 orchestrator routes work to five demo lanes">
       <defs>
         <marker id="ar2" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L7,3 L0,6 z" fill="#7ec8e3"/></marker>
       </defs>
@@ -74,20 +74,20 @@
         <text x="104" y="163" text-anchor="middle" font-size="12" fill="#a05c79">orchestrator</text>
 
         <rect x="332" y="18" width="406" height="52" rx="12" fill="#eaf6fc" stroke="#7ec8e3" stroke-width="2"/>
-        <text x="350" y="40" font-size="13" font-weight="600" fill="#3f5161">Build and validate</text>
-        <text x="350" y="58" font-size="12" fill="#6a8198">01 Authority &#183; 02 Control &#183; 05 Integration &#183; 01 Versioning</text>
+        <text x="350" y="40" font-size="13" font-weight="600" fill="#3f5161">Research and analysis</text>
+        <text x="350" y="58" font-size="12" fill="#6a8198">01 · evidence questions and lab notes</text>
 
         <rect x="332" y="84" width="406" height="52" rx="12" fill="#eaf6fc" stroke="#7ec8e3" stroke-width="2"/>
-        <text x="350" y="106" font-size="13" font-weight="600" fill="#3f5161">Research and theory</text>
-        <text x="350" y="124" font-size="12" fill="#6a8198">01 Research &#183; 03 Theory &#183; 04 Topological modeling</text>
+        <text x="350" y="106" font-size="13" font-weight="600" fill="#3f5161">Data pipelines</text>
+        <text x="350" y="124" font-size="12" fill="#6a8198">02 · conversion and dataset hygiene</text>
 
         <rect x="332" y="150" width="406" height="52" rx="12" fill="#eaf6fc" stroke="#7ec8e3" stroke-width="2"/>
-        <text x="350" y="172" font-size="13" font-weight="600" fill="#3f5161">Product and docs</text>
-        <text x="350" y="190" font-size="12" fill="#6a8198">03 UX &#183; 02 Knowledge &#183; 03 Alignment &#183; 04 Misalignment &#183; 05 R&amp;D</text>
+        <text x="350" y="172" font-size="13" font-weight="600" fill="#3f5161">Modeling and writing</text>
+        <text x="350" y="190" font-size="12" fill="#6a8198">03 Modeling · 04 Writing and documentation</text>
 
         <rect x="332" y="216" width="406" height="52" rx="12" fill="#eaf6fc" stroke="#7ec8e3" stroke-width="2"/>
-        <text x="350" y="238" font-size="13" font-weight="600" fill="#3f5161">Strategy and publication</text>
-        <text x="350" y="256" font-size="12" fill="#6a8198">04 Patenting &#183; 05 Packaging &#183; 05 Publication</text>
+        <text x="350" y="238" font-size="13" font-weight="600" fill="#3f5161">Packaging</text>
+        <text x="350" y="256" font-size="12" fill="#6a8198">05 · packaging and presentation</text>
 
         <line x1="184" y1="146" x2="330" y2="44" stroke="#7ec8e3" stroke-width="2" marker-end="url(#ar2)"/>
         <line x1="184" y1="146" x2="330" y2="110" stroke="#7ec8e3" stroke-width="2" marker-end="url(#ar2)"/>
@@ -96,7 +96,7 @@
       </g>
     </svg>
   </div>
-  <p class="cap">00 is the central orchestrator. It routes work to the lanes and reconciles their returns. Each lane has its own local orchestrator, numbered 01 through 05, that records step state for its actors and relays verified summaries up to 00. Orchestration is distributed, so the letter O names the orchestration lane itself and carries no separate worker team.</p>
+  <p class="cap">00 is the central orchestrator. It routes work to the lanes and reconciles their returns. Each demo lane has its own local orchestrator, numbered 01 through 05, that records step state for its actors and relays verified summaries up to 00.</p>
 
   <h2>Contracts: how work moves and remembers</h2>
   <div class="diagram">
@@ -133,53 +133,37 @@
   </div>
   <p class="cap">Every file carries a surface class, so a reader knows from the path alone whether it is an authoritative memo, a derived report, a narrative log or current state. Each lane keeps dated task homes, and a session reads the step log first, so it resumes with the lane history intact.</p>
 
-  <h2>The full catalogue</h2>
-  <p>The catalogue indexes sixteen work lanes by letter, A through P. The ID is the lane's local orchestrator, 01 through 05, sitting under the central orchestrator 00. The actors that do the work in a lane are named by the lane letter and an instance number, so the research lab lane B runs B1 and B2 and the publication lane P runs P1 and P2.</p>
+  <h2>The demo catalogue</h2>
+  <p>The public demo indexes five work lanes under the central orchestrator 00. Actors inside a lane are named by the lane id and an instance number, so research lane 01 can run workers 01-A1 and 01-A2 in the teaching story without claiming a private production map.</p>
   <table>
-    <tr><th>ID</th><th>Letter</th><th>Lane</th></tr>
-    <tr class="o0"><td class="id">00</td><td class="lt">zero element</td><td>Orchestration and coordinating. Intake, routing, state reconciliation, catalogue hygiene and cross-repo packaging. It does not execute lane work.</td></tr>
-    <tr><td class="id">01</td><td class="lt">A</td><td>Authority / System / Excavation / Validation / Chain Execution</td></tr>
-    <tr><td class="id">01</td><td class="lt">B</td><td>Research / Analysis / Experimental Lab</td></tr>
-    <tr><td class="id">02</td><td class="lt">C</td><td>Control System Infra Unification</td></tr>
-    <tr><td class="id">03</td><td class="lt">D</td><td>UX / Documentation</td></tr>
-    <tr><td class="id">04</td><td class="lt">E</td><td>Patenting / Authoring Strategy</td></tr>
-    <tr><td class="id">05</td><td class="lt">F</td><td>Packaging / Boundary Tracking / Presentation Slides</td></tr>
-    <tr><td class="id">03</td><td class="lt">G</td><td>Theoretical Research / Interdisciplinary Collaboration</td></tr>
-    <tr><td class="id">04</td><td class="lt">H</td><td>Topological Modeling / Hatcher</td></tr>
-    <tr><td class="id">05</td><td class="lt">I</td><td>Integration / Frontend Testing</td></tr>
-    <tr><td class="id">01</td><td class="lt">J</td><td>Packaging and presentation</td></tr>
-    <tr><td class="id">02</td><td class="lt">K</td><td>Research and analysis</td></tr>
-    <tr><td class="id">03</td><td class="lt">L</td><td>Modeling and experiments</td></tr>
-    <tr><td class="id">04</td><td class="lt">M</td><td>Writing and documentation</td></tr>
-    <tr><td class="id">05</td><td class="lt">N</td><td>New Features R&amp;D</td></tr>
-    <tr><td class="id">00</td><td class="lt">O</td><td>The orchestration lane itself. 00 is the central orchestrator and 01 through 05 are the per-lane local orchestrators, so the O letter carries no separate worker team.</td></tr>
-    <tr><td class="id">05</td><td class="lt">P</td><td>Packaging and presentation. Presentation, funding and paper-drafting coordination.</td></tr>
+    <tr><th>ID</th><th>Lane</th></tr>
+    <tr class="o0"><td class="id">00</td><td>Orchestration. Intake, routing, state reconciliation and catalogue hygiene. It does not execute lane work.</td></tr>
+    <tr><td class="id">01</td><td>Research and analysis</td></tr>
+    <tr><td class="id">02</td><td>Data pipelines and conversion</td></tr>
+    <tr><td class="id">03</td><td>Modeling and experiments</td></tr>
+    <tr><td class="id">04</td><td>Writing and documentation</td></tr>
+    <tr><td class="id">05</td><td>Packaging and presentation</td></tr>
   </table>
 
-  <h2>How aimez.ai runs on it</h2>
-  <p>The aimez.ai research program is the work this catalogue coordinates, and the clearest single output is the <a href="https://aimez.ai/notes/routing-demo.html" target="_blank" rel="noopener noreferrer">stress-aware routing demo</a>, built and orchestrated through these lanes. The deployment runs along two strands: the site and routing work, and the research grounding and manuscript chain. The cast deployed so far maps onto the lanes like this.</p>
+  <h2>How a fictional program might use it</h2>
+  <p>Imagine a public research site and a manuscript chain coordinated through the same demo lanes. The cast below is invented for teaching. It is not a deployment map of a private repository.</p>
 
-  <h3>Site, product and routing</h3>
+  <h3>Site and product strand</h3>
   <table>
-    <tr><th>Lane</th><th>aimez.ai work</th></tr>
-    <tr><td class="lt">00 orchestration</td><td>cross-repo orchestration, packaging the program across the site, the manuscripts and the public demos</td></tr>
-    <tr><td class="lt">03 UX / Documentation</td><td>aimez site identity, the notes pages and the figures gallery</td></tr>
-    <tr><td class="lt">04 Patenting / Authoring Strategy</td><td>the StreetLight validation brief and provider disclosure boundaries</td></tr>
-    <tr><td class="lt">05 Packaging</td><td>the advisor outreach packet and grant proposal revision alignment</td></tr>
-    <tr><td class="lt">03 Theoretical Research</td><td>the research partner packet, formal theory sharpness and the allocentric flocking bridge</td></tr>
-    <tr><td class="lt">04 Topological Modeling</td><td>the topological framing of the Manhattan graph work</td></tr>
-    <tr><td class="lt">03 Modeling and experiments</td><td>aimez program identity, holding the program coherent across surfaces</td></tr>
+    <tr><th>Lane</th><th>Example work</th></tr>
+    <tr><td class="lt">00 orchestration</td><td>cross-repo packaging across the site, notes and public demos</td></tr>
+    <tr><td class="lt">04 Writing / Documentation</td><td>site identity, notes pages and figure gallery copy</td></tr>
+    <tr><td class="lt">05 Packaging</td><td>outreach packet assembly and slide packaging</td></tr>
   </table>
 
-  <h3>Research grounding and manuscript chain</h3>
-  <p>This strand grew out of the publication chain program, which carried the figure data and the trace reconstruction behind the research. It is where the catalogue has cast multiple actors per lane.</p>
+  <h3>Research and manuscript strand</h3>
   <table>
-    <tr><th>Lane</th><th>Actors</th><th>What it carried</th></tr>
-    <tr><td class="lt">01 Authority / Excavation</td><td class="lt">A1, A2</td><td>the trace reconstruction lane, excavation lineage and chain execution behind the published figures</td></tr>
-    <tr><td class="lt">01 Research / Lab</td><td class="lt">B1, B2</td><td>the evidence closure lane and the figure-data chain</td></tr>
-    <tr><td class="lt">05 Publication</td><td class="lt">05-A1, 05-A2</td><td>the exploratory findings manuscript chain, with 05-A1 the research counterpart and P1, P2 the publication runners</td></tr>
+    <tr><th>Lane</th><th>Example actors</th><th>What it carries in the story</th></tr>
+    <tr><td class="lt">01 Research / analysis</td><td class="lt">01-A1, 01-A2</td><td>evidence questions and figure-data notes</td></tr>
+    <tr><td class="lt">03 Modeling</td><td class="lt">03-A1</td><td>experiment notes that feed the writing lane</td></tr>
+    <tr><td class="lt">04 Writing</td><td class="lt">04-A1, 04-A2</td><td>draft manuscript sections and presentation text</td></tr>
   </table>
-  <p class="cap">Some lanes are live and some are cast and held. The migration registry in the program repository records the current step for each lane and actor.</p>
+  <p class="cap">Some lanes can be live and some held. A migration registry in a real program would record the current step for each lane and actor. This page does not publish such a registry.</p>
 
   <h2>Honest scope</h2>
   <p>The coordinating method was formalized in spring 2026, so it is recent and parts of it are still settling into habit. The discipline reduces context loss across long work and it leans on care more than on automation, so the honest claim is modest: it helps, and it is still being proven.</p>
